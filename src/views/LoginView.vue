@@ -1,6 +1,5 @@
 <template>
   <div class="about">
-    <img alt="Vue logo" src="../assets/logo.png">
     <SigninForm/>
   </div>
 </template>
