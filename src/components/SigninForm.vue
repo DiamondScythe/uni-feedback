@@ -8,7 +8,7 @@
         <input type="password" required v-model="password">
         <br>
         <br>
-        <button>Submit</button>
+        <button>Login</button>
     </form>
 
     <p>Email: {{ email }}</p>

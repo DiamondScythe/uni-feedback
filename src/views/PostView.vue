@@ -1,6 +1,17 @@
 <template>
     <div class="about">
-      <h1>This is a post view</h1>
+        <PostForm/>    
     </div>
-  </template>
+</template>
   
+
+<script>
+import PostForm from '@/components/PostForm.vue';
+
+export default {
+    name: 'PostView',
+    components: {
+        PostForm
+    }
+}
+</script>
