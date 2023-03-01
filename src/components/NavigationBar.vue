@@ -5,7 +5,7 @@
                 <router-link to="/">University Feedback</router-link>
             </div>
             <div class="menu">
-                <router-link to="/login">Login / Sign up</router-link> |
+                <router-link to="/login">Login</router-link> |
                 <router-link to="/post">Post an idea</router-link>
             </div>
         </div>

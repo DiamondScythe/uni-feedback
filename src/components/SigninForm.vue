@@ -28,12 +28,13 @@ export default {
     },
     methods: {
         handleSubmit(){
-            //validate stuff here
+            //TODO: validate stuff here
             const auth = getAuth();
             signInWithEmailAndPassword(auth, this.email, this.password)
                 .then((userCredential) => {
                     //signed in
                     const user = userCredential.user;
+                    alert("Signin successful");
 
                 })
                 .catch((error) => {
