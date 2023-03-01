@@ -1,5 +1,5 @@
 <template>
-    <form>
+    <form @submit.prevent="handleSubmit">
         <br>
         <label>Email </label>
         <input type="email" required v-model="email">
@@ -16,12 +16,31 @@
 </template>
 
 <script>
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
 export default {
     data(){
         return{
-            email: 'mario',
-            password: '',
+            email: 'mario@gmail.com',
+            password: '123456789',
             role: ''
+        }
+    },
+    methods: {
+        handleSubmit(){
+            //validate stuff here
+            const auth = getAuth();
+            signInWithEmailAndPassword(auth, this.email, this.password)
+                .then((userCredential) => {
+                    //signed in
+                    const user = userCredential.user;
+
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    alert(error.message)
+                });
         }
     }
 }
