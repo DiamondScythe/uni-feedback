@@ -13,7 +13,10 @@
 </template>
 
 <script>
+
 export default {
+    props: ['isSignedIn'],
+    
 }
 </script>
 

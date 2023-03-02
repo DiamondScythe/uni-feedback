@@ -1,6 +1,6 @@
 
 <template>
-  <NavigationBar/>
+  <NavigationBar :isSignedIn="isSignedIn"/>
   <router-view/>
 </template>
 
@@ -11,6 +11,11 @@ import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebas
 export default {
   components: {
     NavigationBar
+  },
+  data(){
+    return{
+      isSignedIn: 'true'
+    }
   },
   methods: {
     attachListener(){
