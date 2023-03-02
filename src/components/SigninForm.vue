@@ -8,15 +8,17 @@
         <input type="password" required v-model="password">
         <br>
         <br>
-        <button>Login</button>
+        <input type="submit" value="Log in">
     </form>
+
+    <button @click="logout">Log out</button>
 
     <p>Email: {{ email }}</p>
     <p>Password: {{ password }}</p>
 </template>
 
 <script>
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 export default {
     data(){
@@ -43,6 +45,15 @@ export default {
                     alert(error.message)
                 });
         },
+        logout(){
+            const auth = getAuth();
+            signOut(auth).then(() => {
+            // Sign-out successful.
+            }).catch((error) => {
+            // An error happened.
+            console.log(error.message)
+            });
+        }
     }
 }
 </script>
