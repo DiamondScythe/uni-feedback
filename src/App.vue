@@ -24,8 +24,7 @@ export default {
           console.log('currently signed in');
           // ...
         } else {
-          // User is signed out
-          // ...
+          console.log('currently signed out');
         }
       });
     }
