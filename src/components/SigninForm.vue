@@ -16,13 +16,13 @@
 </template>
 
 <script>
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 
 export default {
     data(){
         return{
-            email: 'mario@gmail.com',
-            password: '123456789',
+            email: 'abc@gmail.com',
+            password: '123456',
             role: ''
         }
     },
@@ -42,7 +42,7 @@ export default {
                     const errorMessage = error.message;
                     alert(error.message)
                 });
-        }
+        },
     }
 }
 </script>
