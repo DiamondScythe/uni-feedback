@@ -5,18 +5,34 @@
                 <router-link to="/">University Feedback</router-link>
             </div>
             <div class="menu">
-                <router-link to="/login">Login</router-link> |
+                <router-link to="/login" v-if="!isSignedIn">Login </router-link>
+                <a href="" @click.prevent="logout" v-if="isSignedIn">Logout </a>
                 <router-link to="/post">Post an idea</router-link>
+                <span v-if="isSignedIn">Welcome {{ userEmail }}</span>
             </div>
         </div>
     </nav>
 </template>
 
 <script>
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 export default {
-    props: ['isSignedIn'],
-    
+    props: ['isSignedIn', 'userEmail'],
+    methods: {
+        handleLogout(){
+            console.log('Logout')
+        },
+        logout(){
+            const auth = getAuth();
+            signOut(auth).then(() => {
+            // Sign-out successful.
+            }).catch((error) => {
+            // An error happened.
+            console.log(error.message)
+            });
+        }
+    }
 }
 </script>
 

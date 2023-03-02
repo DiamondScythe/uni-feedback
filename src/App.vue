@@ -1,6 +1,6 @@
 
 <template>
-  <NavigationBar :isSignedIn="isSignedIn"/>
+  <NavigationBar :isSignedIn="isSignedIn" :userEmail="userEmail"/>
   <router-view/>
 </template>
 
@@ -14,7 +14,8 @@ export default {
   },
   data(){
     return{
-      isSignedIn: 'true'
+      isSignedIn: true,
+      userEmail: ''
     }
   },
   methods: {
@@ -25,11 +26,14 @@ export default {
           // User is signed in, see docs for a list of available properties
           // https://firebase.google.com/docs/reference/js/firebase.User
           const uid = user.uid;
+          this.userEmail = user.email;
           console.log(uid);
           console.log('currently signed in');
+          this.isSignedIn = true
           // ...
         } else {
           console.log('currently signed out');
+          this.isSignedIn = false
         }
       });
     }

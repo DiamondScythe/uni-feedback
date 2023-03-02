@@ -36,7 +36,6 @@ export default {
                 .then((userCredential) => {
                     //signed in
                     const user = userCredential.user;
-                    alert("Signin successful");
 
                 })
                 .catch((error) => {
