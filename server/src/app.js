@@ -15,14 +15,6 @@ let sql;
 
 const db = require("../db/posts")
 
-// sql = 'CREATE TABLE users(id INTEGER PRIMARY KEY, first_name, last_name, username, password, email)';
-// db.run(sql);
-
-// sql = 'INSERT INTO users(first_name,last_name,username,password,email) VALUES (?,?,?,?,?)'
-// db.run(sql,["mike", "lol", "diamond", "1as2", "abc@gmail.com"],(err)=>{
-//     if (err) return console.error(err.message);
-// })
-
 app.get("/test", (req, res) => {
     res.status(200).json({success: true});
 });
