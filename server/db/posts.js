@@ -1,11 +1,11 @@
 const knex = require("./knex.js");
 
 function createPost(post) {
-    return knex("posts").insert(post);
+    return knex("Test").insert(post);
 }
 
 function getAllPosts() {
-    return knex("posts").select("*");
+    return knex("Test").select("*");
 }
 
 module.exports = {

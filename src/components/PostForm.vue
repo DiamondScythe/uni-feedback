@@ -1,5 +1,5 @@
 <template>
-    <form>
+    <form @submit.prevent="handleSubmit">
         <br>
         <label>Post title </label>
         <input type="text" required v-model="title">
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import axios from  'axios';
 
 export default {
     beforeUpdate(){
@@ -32,6 +33,16 @@ export default {
             title: '',
             body: '',
             type: '',
+        }
+    },
+    methods: {
+        handleSubmit(){
+            axios.post('http://localhost:8081/post',{
+                title: this.title,
+                body: this.body,
+            })
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
         }
     }
 }

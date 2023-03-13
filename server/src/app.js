@@ -14,6 +14,7 @@ app.use(cors())
 let sql;
 
 const db = require("../db/posts")
+const db2 = require("../db/ideas")
 
 app.get("/test", (req, res) => {
     res.status(200).json({success: true});
@@ -21,6 +22,11 @@ app.get("/test", (req, res) => {
 
 app.post("/post", async (req, res) =>{
     const results = await db.createPost(req.body);
+    res.status(201).json({id: results[0]});
+})
+
+app.post("/idea", async (req, res) =>{
+    const results = await db2.createIdea(req.body);
     res.status(201).json({id: results[0]});
 })
 
