@@ -31,7 +31,7 @@ export default {
         return{
             title: '',
             body: '',
-            type: '',
+            user_id: '1',
             categories: [],
             selectedCategory: ''
         }
@@ -45,9 +45,11 @@ export default {
     },
     methods: {
         handleSubmit(){
-            axios.post('http://localhost:8081/post',{
+            axios.post('http://localhost:8081/idea',{
                 title: this.title,
                 body: this.body,
+                user_id: this.user_id,
+                category_id: this.selectedCategory,
             })
             .then(res => console.log(res))
             .catch(err => console.log(err))

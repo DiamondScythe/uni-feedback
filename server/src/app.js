@@ -30,6 +30,11 @@ app.post("/idea", async (req, res) =>{
     res.status(201).json({id: results[0]});
 })
 
+app.get("/ideas", async (req, res) =>{
+    const results = await db2.getAllIdeas();
+    res.status(201).json({ideas: results});
+})
+
 app.get("/categories", async (req, res) =>{
     const results = await db2.getAllCategories();
     res.status(201).json({categories: results});
