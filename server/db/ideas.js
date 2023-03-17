@@ -8,7 +8,12 @@ function getAllIdeas() {
     return knex("Ideas").select("*");
 }
 
+function getAllCategories() {
+    return knex("Categories").select("*");
+}
+
 module.exports = {
     createIdea,
     getAllIdeas,
+    getAllCategories,
 }
