@@ -44,7 +44,7 @@ app.get("/categories", async (req, res) =>{
 app.get('/details', async (req, res) => {
     const { id } = req.query;
     const results = await db2.getIdeaDetails(id);
-    res.status(201).json({details: results});
+    res.status(201).json(results[0]);
   });
 
 app.listen(8081, () => console.log("server is now running on port 8081"));

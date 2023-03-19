@@ -13,6 +13,7 @@
             <th><router-link :to="{ name: 'details', params: { id: idea.id}}">Details</router-link></th>
         </tr>
     </table>
+    {{ ideas }}
 </template>
 
 <script>
