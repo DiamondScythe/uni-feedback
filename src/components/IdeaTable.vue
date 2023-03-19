@@ -10,7 +10,7 @@
             <th>{{idea.id}}</th>
             <th>{{idea.title}}</th>
             <th>{{idea.category_id}}</th>
-            <th><router-link to="/details">Details</router-link></th>
+            <th><router-link :to="{ name: 'details', params: { id: idea.id}}">Details</router-link></th>
         </tr>
     </table>
 </template>

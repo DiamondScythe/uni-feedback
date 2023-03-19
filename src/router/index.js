@@ -21,9 +21,10 @@ const routes = [
     component: PostView
   },
   {
-    path: '/details',
+    path: '/details/:id',
     name: 'details',
-    component: DetailsView
+    component: DetailsView,
+    props: true
   }
 ]
 
