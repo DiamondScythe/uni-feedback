@@ -45,7 +45,7 @@ export default {
     },
     methods: {
         handleSubmit(){
-            axios.post('http://localhost:8081/idea',{
+            axios.post('http://localhost:8081/ideas',{
                 title: this.title,
                 body: this.body,
                 user_id: this.user_id,

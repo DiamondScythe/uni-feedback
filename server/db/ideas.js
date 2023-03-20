@@ -16,9 +16,19 @@ function getIdeaDetails(id) {
     return knex("Ideas").where('id', id);
 }
 
+function createComment(comment) {
+    return knex("Comments").insert(comment);
+}
+
+function getComments(idea_id) {
+    return knex("Comments").where('idea_id', idea_id)
+}
+
 module.exports = {
     createIdea,
     getAllIdeas,
     getAllCategories,
     getIdeaDetails,
+    createComment,
+    getComments,
 }
