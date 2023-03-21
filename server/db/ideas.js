@@ -24,6 +24,10 @@ function getComments(idea_id) {
     return knex("Comments").where('idea_id', idea_id)
 }
 
+function deleteIdea(id){
+    return knex("Ideas").where('id', id).del()
+}
+
 module.exports = {
     createIdea,
     getAllIdeas,
@@ -31,4 +35,5 @@ module.exports = {
     getIdeaDetails,
     createComment,
     getComments,
+    deleteIdea,
 }

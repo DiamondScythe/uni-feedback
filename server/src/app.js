@@ -21,6 +21,7 @@ app.post("/ideas", async (req, res) =>{
     res.status(201).json({id: results[0]});
 })
 
+//get all ideas from database
 app.get("/ideas", async (req, res) =>{
     const results = await db2.getAllIdeas();
     res.status(200).json({ideas: results});
