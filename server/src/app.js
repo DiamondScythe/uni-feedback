@@ -64,5 +64,16 @@ app.get('/comments', async (req, res) => {
       }
 })
 
+//delete idea
+app.delete('/ideas', async (req, res) => {
+    const { id } = req.query;
+    const results = await db2.deleteIdea(id);
+    if (results) {
+        res.status(204).send()
+      } else {
+        res.status(404).json({ message: 'No idea found with that ID was found' });
+      }
+})
+
 
 app.listen(8081, () => console.log("server is now running on port 8081"));

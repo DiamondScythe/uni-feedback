@@ -10,7 +10,9 @@
             <th>{{idea.id}}</th>
             <th>{{idea.title}}</th>
             <th>{{idea.category_id}}</th>
-            <th><router-link :to="{ name: 'details', params: { id: idea.id}}">Details</router-link></th>
+            <th><router-link :to="{ name: 'details', params: { id: idea.id}}">Details</router-link>
+            <button @click="confirmDelete(idea.id)">Delete</button>
+            </th>
         </tr>
     </table>
 </template>
@@ -30,6 +32,18 @@ export default {
                 this.ideas = res.data.ideas;
             }
             )
+    },
+    methods: {
+        confirmDelete(id) {
+            if (confirm('Are you sure you want to delete this item?')) {
+            this.deleteItem(id)
+            }
+        },
+        deleteItem(id) {
+            axios.delete("http://localhost:8081/ideas?id="+id)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+        }
     }
 }
 </script>
