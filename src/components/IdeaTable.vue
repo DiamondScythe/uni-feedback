@@ -7,7 +7,7 @@
         </tr>
         <tr v-for="idea in paginatedItems" :key="idea.id">
             <th>{{idea.title}}</th>
-            <th>{{idea.category_id}}</th>
+            <th>{{ getCategoryName(idea.category_id) }}</th>
             <th><router-link :to="{ name: 'details', params: { id: idea.id}}">Details</router-link>
             <button @click="confirmDelete(idea.id)">Delete</button>
             </th>
@@ -17,6 +17,7 @@
     <div class="pagination">
       <button @click="previousPage" :disabled="currentPage === 1">Previous</button>
       <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
+      Current page: {{ currentPage }}/{{ totalPages }}
     </div>
 </template>
 
@@ -27,6 +28,7 @@ export default {
     data() {
       return {
         ideas: [],
+        categories: [],
 
         //pagination settings
         itemsPerPage: 4,
@@ -44,11 +46,15 @@ export default {
         },
     },
     mounted(){
-      axios.get("http://localhost:8081/ideas")
-            .then(res => {
-                this.ideas = res.data.ideas;
-            }
-            )
+        axios.get("http://localhost:8081/ideas")
+        .then(res => {
+            this.ideas = res.data.ideas;
+        }
+        ),
+        axios.get("http://localhost:8081/categories")
+        .then(res => {
+            this.categories = res.data.categories;
+        })
     },
     methods: {
         confirmDelete(id) {
@@ -76,6 +82,12 @@ export default {
         nextPage() {
         this.currentPage += 1;
         },
+
+        //used to get the category name based on the category id
+        getCategoryName(id){
+            const category = this.categories.find(category => category.id === id)
+            return category ? category.name : null; // return category name if found, null otherwise
+        }
     }
 }
 </script>
