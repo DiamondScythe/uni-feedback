@@ -28,6 +28,16 @@ function deleteIdea(id){
     return knex("Ideas").where('id', id).del()
 }
 
+//voting
+//the id here is post_id, not vote_id
+
+function getAllIdeaVotes(id){
+    return knex("Votes")
+    .join('Ideas', 'Votes.idea_id', '=', 'Ideas.id')
+    .where('Ideas.id', id)
+    .sum('value as votes')
+}
+
 module.exports = {
     createIdea,
     getAllIdeas,
@@ -36,4 +46,5 @@ module.exports = {
     createComment,
     getComments,
     deleteIdea,
+    getAllIdeaVotes,
 }
