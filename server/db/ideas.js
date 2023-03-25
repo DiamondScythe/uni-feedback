@@ -38,6 +38,14 @@ function getAllIdeaVotes(id){
     .sum('value as votes')
 }
 
+function voteIdea(vote){
+    return knex("Votes")
+    .insert(vote)
+    .onConflict(['user_id', 'idea_id'])
+    .merge()
+    .catch(err=>{console.log(err)})
+}
+
 module.exports = {
     createIdea,
     getAllIdeas,
@@ -47,4 +55,5 @@ module.exports = {
     getComments,
     deleteIdea,
     getAllIdeaVotes,
+    voteIdea
 }

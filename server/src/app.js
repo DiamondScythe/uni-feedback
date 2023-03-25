@@ -80,10 +80,16 @@ app.get('/ideavotes', async (req, res) => {
   const { id } = req.query;
   const results = await db2.getAllIdeaVotes(id);
   if (results.length > 0){
-      res.status(200).json(results);
+      res.status(200).json(results[0]);
     } else {
       res.status(404).json({ message: 'No idea found with that ID was found' });
   }
+})
+
+//upvote and downvote idea
+app.post('/voteIdea', async (req, res) => {
+  const results = await db2.voteIdea(req.body);
+  res.status(201)
 })
 
 app.listen(8081, () => console.log("server is now running on port 8081"));

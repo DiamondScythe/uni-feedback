@@ -6,7 +6,6 @@ import router from './router'
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
-
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCGizd_8i6SixXx0kYVa8ikkEbg02ZDsD0",
