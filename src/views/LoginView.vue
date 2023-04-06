@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div class="login">
     <SigninForm/>
   </div>
 </template>
@@ -15,3 +15,7 @@ export default {
 }
 }
 </script>
+
+<style scoped>
+
+</style>
