@@ -1,10 +1,12 @@
 console.log('Hello server')
 
+const nodemailer = require('nodemailer');
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
 const sqlite3 = require('sqlite3').verbose()
+require('dotenv').config(); 
 
 const app = express()
 app.use(morgan('combined'))
@@ -31,6 +33,43 @@ app.get("/categories", async (req, res) =>{
     const results = await db2.getAllCategories();
     res.status(200).json({categories: results});
 })
+
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+app.post('/email', async (req, res) => {
+  try {
+    const { email } = req.body; // destructed email value from request
+    let transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS,
+      },
+    });
+
+    const msg = {
+      from: `"Khuong" <${process.env.MAIL_USER}>`,
+      to: 'khuongwhitelily@gmail.com',
+      subject: 'Hello',
+      html: '<b>Hello world?</b>',
+    };
+
+    const info = await transporter.sendMail(msg);
+
+    console.log('Message sent: %s', info.messageId);
+
+    res.send('Email Sent!');
+    
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 
 //get idea details
 //ex: get req is http://localhost:8081/details?id=5
