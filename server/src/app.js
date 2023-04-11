@@ -9,6 +9,9 @@ const sqlite3 = require('sqlite3').verbose()
 require('dotenv').config(); 
 
 const app = express()
+const fs = require('fs')
+const fastcsv = require('fast-csv');
+const JSZip = require('jszip');
 app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
@@ -23,7 +26,6 @@ app.post("/ideas", async (req, res) =>{
     res.status(201).json({id: results[0]});
 })
 
-//get all ideas from database
 app.get("/ideas", async (req, res) =>{
     const results = await db2.getAllIdeas();
     res.status(200).json({ideas: results});
@@ -71,6 +73,35 @@ app.post('/email', async (req, res) => {
 });
 
 
+
+
+app.get('/download', async (req, res) => {
+  // Lấy dữ liệu từ database và chuyển đổi sang định dạng CSV
+  await db2.getAllIdeas().then(async (data) => {
+    // Tạo file CSV từ dữ liệu lấy được
+    const csvStream = fastcsv.format({ headers: true });
+    csvStream.pipe(fs.createWriteStream('data.csv')).on('finish', async () => {
+      // Nén file CSV thành file zip
+      const zip = new JSZip();
+      const dataFile = await fs.promises.readFile('data.csv');
+      zip.file('data.csv', dataFile);
+      const zipContent = await zip.generateAsync({ type: 'nodebuffer' });
+
+      // Trả về file zip để tải xuống
+      res.set('Content-Disposition', 'attachment; filename=data.zip');
+      res.set('Content-Type', 'application/zip');
+      res.status(200).send(zipContent);
+    });
+    data.forEach((row) => {
+      csvStream.write(row);
+    });
+    csvStream.end();
+  }).catch((err) => {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  });
+});
+
 //get idea details
 //ex: get req is http://localhost:8081/details?id=5
 //this will get details of post at id = 5
@@ -103,32 +134,5 @@ app.get('/comments', async (req, res) => {
       }
 })
 
-//delete idea
-app.delete('/ideas', async (req, res) => {
-    const { id } = req.query;
-    const results = await db2.deleteIdea(id);
-    if (results) {
-        res.status(204).send()
-      } else {
-        res.status(404).json({ message: 'No idea found with that ID was found' });
-      }
-})
-
-//get total votes of an idea
-app.get('/ideavotes', async (req, res) => {
-  const { id } = req.query;
-  const results = await db2.getAllIdeaVotes(id);
-  if (results.length > 0){
-      res.status(200).json(results[0]);
-    } else {
-      res.status(404).json({ message: 'No idea found with that ID was found' });
-  }
-})
-
-//upvote and downvote idea
-app.post('/voteIdea', async (req, res) => {
-  const results = await db2.voteIdea(req.body);
-  res.status(201)
-})
 
 app.listen(8081, () => console.log("server is now running on port 8081"));
