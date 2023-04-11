@@ -1,6 +1,6 @@
 console.log('Hello server')
 
-const nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer')
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
@@ -12,6 +12,8 @@ const app = express()
 app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 let sql;
 
@@ -35,12 +37,10 @@ app.get("/categories", async (req, res) =>{
 })
 
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-
 app.post('/email', async (req, res) => {
   try {
     const { email } = req.body; // destructed email value from request
+ 
     let transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 587,
@@ -52,8 +52,8 @@ app.post('/email', async (req, res) => {
     });
 
     const msg = {
-      from: `"Khuong" <${process.env.MAIL_USER}>`,
-      to: 'khuongwhitelily@gmail.com',
+      from: `"khuong"<${process.env.MAIL_USER}>`,
+      to: email,
       subject: 'Hello',
       html: '<b>Hello world?</b>',
     };
