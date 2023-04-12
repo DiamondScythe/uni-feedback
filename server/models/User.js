@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please enter a password"],
     minlength: [6, "Minimum password length is 6 characters"],
   },
+  role: {
+    type: String,
+    required: [true, "Please enter a role"],
+  },
 });
 
 // fire a function before doc saved to db. This is a mongoose middleware. Hashes the passwords.
