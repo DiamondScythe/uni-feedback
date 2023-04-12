@@ -1,49 +1,24 @@
-
 <template>
-  <NavigationBar :isSignedIn="isSignedIn" :userEmail="userEmail"/>
-  <router-view/>
+  <NavigationBar :isSignedIn="isSignedIn" :userEmail="userEmail" />
+  <router-view />
 </template>
 
 <script>
-import NavigationBar from './components/NavigationBar.vue';
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import NavigationBar from "./components/NavigationBar.vue";
 
 export default {
   components: {
-    NavigationBar
+    NavigationBar,
   },
-  data(){
-    return{
-      isSignedIn: true,
-      userEmail: ''
-    }
+  data() {
+    return {
+      isSignedIn: false,
+      userEmail: "",
+    };
   },
-  methods: {
-    attachListener(){
-      const auth = getAuth();
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/firebase.User
-          const uid = user.uid;
-          this.userEmail = user.email;
-          console.log(uid);
-          console.log('currently signed in');
-          this.isSignedIn = true
-          // ...
-        } else {
-          console.log('currently signed out');
-          this.isSignedIn = false
-        }
-      });
-    }
-
-  },
-
-  beforeMount() {
-    this.attachListener()
-  }
-}
+  methods: {},
+  beforeMount() {},
+};
 </script>
 
 <style>
