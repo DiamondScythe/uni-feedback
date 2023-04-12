@@ -14,11 +14,35 @@ const fastcsv = require("fast-csv");
 const JSZip = require("jszip");
 app.use(morgan("combined"));
 app.use(bodyParser.json());
-app.use(cors());
+// app.use(cors());
 
-let sql;
+const mongoose = require("mongoose");
+const authRoutes = require("../routes/authRoutes");
+const cookieParser = require("cookie-parser");
 
-const db = require("../db/posts");
+app.use(express.json());
+app.use(cookieParser());
+
+const corsOptions = {
+  //To allow requests from client
+  origin: ["http://localhost:8080"],
+  credentials: true,
+  exposedHeaders: ["set-cookie"],
+};
+
+const corsMiddleware = cors(corsOptions);
+
+app.use(corsMiddleware);
+//database connection for user auth
+const dbURI = "mongodb://localhost:27017/uni-feedback";
+mongoose
+  .connect(dbURI)
+  .then((result) => {
+    console.log("connected to mongodb db");
+  })
+  .catch((err) => console.log(err));
+
+//db connection for general data
 const db2 = require("../db/ideas");
 
 app.post("/ideas", async (req, res) => {
@@ -148,5 +172,8 @@ app.get("/ideavotes", async (req, res) => {
   console.log(results);
   res.status(200).json(results[0]);
 });
+
+//mongodb routes for user auth
+app.use(authRoutes);
 
 app.listen(8081, () => console.log("server is now running on port 8081"));
