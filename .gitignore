@@ -52,6 +52,9 @@ web_modules/
 # Optional npm cache directory
 .npm
 
+#database
+server/data/data.sqlite3
+
 # Optional eslint cache
 .eslintcache
 
