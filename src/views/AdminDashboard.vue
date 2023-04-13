@@ -3,17 +3,46 @@
     <div class="sidebar">
       <!-- List of links for the sidebar -->
       <ul>
-        <li><a href="#">Link 1</a></li>
-        <li><a href="#">Link 2</a></li>
-        <li><a href="#">Link 3</a></li>
+        <li><a href="#" @click="categoryOn">Category Management</a></li>
+        <li><a href="#" @click="staffOn">Staff Management</a></li>
       </ul>
     </div>
     <div class="content">
-      <!-- Your components will go here -->
-      <router-view></router-view>
+      <!-- Content goes here -->
+      <CategoryManagement v-if="categoryShow"></CategoryManagement>
+      <StaffManagement v-if="staffShow"></StaffManagement>
     </div>
   </div>
 </template>
+
+<script>
+import axios from "axios";
+import CategoryManagement from "../components/Admin/CategoryManagement.vue";
+import StaffManagement from "../components/Admin/StaffManagement.vue";
+
+export default {
+  data() {
+    return {
+      categoryShow: false,
+      staffShow: true,
+    };
+  },
+  components: {
+    CategoryManagement,
+    StaffManagement,
+  },
+  methods: {
+    categoryOn() {
+      this.categoryShow = true;
+      this.staffShow = false;
+    },
+    staffOn() {
+      this.categoryShow = false;
+      this.staffShow = true;
+    },
+  },
+};
+</script>
 
 <style>
 .container {
@@ -31,5 +60,9 @@
 .content {
   width: 80%;
   padding: 20px;
+}
+
+ul {
+  list-style: none;
 }
 </style>
