@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar :isSignedIn="isSignedIn" :userEmail="userEmail" />
+  <NavigationBar />
   <router-view />
 </template>
 

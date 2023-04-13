@@ -7,7 +7,7 @@
       <div class="menu">
         <router-link to="/signup" v-if="!isSignedIn">Sign Up </router-link>
         <router-link to="/login" v-if="!isSignedIn">Login </router-link>
-        <router-link to="/admin" v-if="!isSignedIn"
+        <router-link to="/admin" v-if="isSignedIn"
           >Admin Dashboard
         </router-link>
         <a href="" @click.prevent="logout" v-if="isSignedIn">Logout </a>
@@ -19,24 +19,29 @@
 </template>
 
 <script>
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { checkAuthStatus } from "../utils/auth.js";
 
 export default {
-  props: ["isSignedIn", "userEmail"],
+  data() {
+    return {
+      isSignedIn: false,
+      userEmail: "",
+    };
+  },
+  async created() {
+    //checkAuthStatus returns a promise, so you have to use await to get the value.
+    //You can't use the value of a promise directly.
+    const isAuthenticated = await checkAuthStatus();
+    if (isAuthenticated) {
+      //get user data here
+      this.isSignedIn = isAuthenticated;
+    } else {
+      this.isSignedIn = false;
+    }
+  },
   methods: {
-    handleLogout() {
-      console.log("Logout");
-    },
     logout() {
-      const auth = getAuth();
-      signOut(auth)
-        .then(() => {
-          // Sign-out successful.
-        })
-        .catch((error) => {
-          // An error happened.
-          console.log(error.message);
-        });
+      console.log("logout");
     },
   },
 };
