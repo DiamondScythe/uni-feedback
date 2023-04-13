@@ -9,7 +9,7 @@
     </tr>
     <tr v-for="category in categories" :key="category.id">
       <td>{{ category.name }}</td>
-      <td>15</td>
+      <td>{{ getNumberOfIdeas(category.id) }}</td>
       <td>
         <button>Delete</button>
       </td>
@@ -26,6 +26,7 @@ import AddNewCategory from "./forms/AddNewCategory.vue";
 export default {
   data() {
     return {
+      ideas: [],
       categories: [],
       newCategory: "",
     };
@@ -34,9 +35,18 @@ export default {
     AddNewCategory,
   },
   mounted() {
+    axios.get("http://localhost:8081/ideas").then((res) => {
+      this.ideas = res.data.ideas;
+    });
     axios.get("http://localhost:8081/categories").then((res) => {
       this.categories = res.data.categories;
     });
+  },
+  methods: {
+    getNumberOfIdeas(category_id) {
+      return this.ideas.filter((idea) => idea.category_id === category_id)
+        .length;
+    },
   },
 };
 </script>
