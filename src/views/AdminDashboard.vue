@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import CategoryManagement from "../components/Admin/CategoryManagement.vue";
-import StaffManagement from "../components/Admin/StaffManagement.vue";
-import IdeaManagement from "../components/Admin/IdeaManagement.vue";
+import CategoryManagement from "../components/admin/CategoryManagement.vue";
+import StaffManagement from "../components/admin/StaffManagement.vue";
+import IdeaManagement from "../components/admin/IdeaManagement.vue";
 
 export default {
   data() {
