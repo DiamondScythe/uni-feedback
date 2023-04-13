@@ -26,10 +26,6 @@
     </button>
     Current page: {{ currentPage }}/{{ totalPages }}
   </div>
-
-  {{ ideas }}
-  <br />
-  {{ categories }}
 </template>
 
 <script>

@@ -16,11 +16,12 @@
     </tr>
   </table>
   <br />
-  <button>Add new category</button>
+  <AddNewCategory></AddNewCategory>
 </template>
 
 <script>
 import axios from "axios";
+import AddNewCategory from "./forms/AddNewCategory.vue";
 
 export default {
   data() {
@@ -28,6 +29,9 @@ export default {
       categories: [],
       newCategory: "",
     };
+  },
+  components: {
+    AddNewCategory,
   },
   mounted() {
     axios.get("http://localhost:8081/categories").then((res) => {
