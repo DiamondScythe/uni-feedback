@@ -4,6 +4,7 @@ import LoginView from "../views/LoginView.vue";
 import PostView from "../views/PostView.vue";
 import DetailsView from "../views/DetailsView.vue";
 import SignupView from "../views/SignupView.vue";
+import AdminView from "../views/AdminDashboard.vue";
 
 import { getJwtToken } from "@/utils/auth";
 import axios from "axios";
@@ -36,6 +37,11 @@ const routes = [
     path: "/signup",
     name: "signup",
     component: SignupView,
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: AdminView,
   },
 ];
 
