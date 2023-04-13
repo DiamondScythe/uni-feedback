@@ -23,8 +23,8 @@ import StaffManagement from "../components/Admin/StaffManagement.vue";
 export default {
   data() {
     return {
-      categoryShow: false,
-      staffShow: true,
+      categoryShow: true,
+      staffShow: false,
     };
   },
   components: {
