@@ -182,7 +182,7 @@ app.get("/details", async (req, res) => {
 //post comments
 app.post("/comments", async (req, res) => {
   const results = await db2.createComment(req.body);
-  res.status(201);
+  res.status(201).json();
 });
 
 //get comments from idea id
