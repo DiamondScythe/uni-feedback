@@ -24,7 +24,7 @@ export default {
       email: "abc@gmail.com",
       password: "123456",
       role: "",
-      signedIn: false,
+      signedIn: null,
     };
   },
   methods: {
@@ -40,11 +40,10 @@ export default {
         )
         .then((res) => {
           console.log("login completed");
+          this.toggleSignedIn();
+          this.$router.push("/");
         })
         .catch((err) => console.log(err));
-
-      this.toggleSignedIn();
-      this.$router.push("/");
     },
     toggleSignedIn() {
       this.signedIn = true;

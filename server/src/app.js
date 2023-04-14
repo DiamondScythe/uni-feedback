@@ -43,7 +43,11 @@ mongoose
   .then((result) => {
     console.log("connected to mongodb db");
   })
-  .catch((err) => console.log(err));
+  .catch((err) =>
+    console.log(
+      "connection to mongodb failed. Authorization will not work. Please install mongodb on your computer, and make sure mongod is running"
+    )
+  );
 
 //set up multer storage
 
@@ -211,7 +215,7 @@ app.get("/ideavotes", async (req, res) => {
   res.status(200).json(results[0]);
 });
 
-//delete
+//delete idea
 app.delete("/ideas", async (req, res) => {
   const { id } = req.query;
   const results = await db2.deleteIdea(id);

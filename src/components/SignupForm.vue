@@ -8,52 +8,47 @@
     <label>Password </label>
     <input type="password" required v-model="password" />
     <br />
+    <label>Role </label>
+    <input type="text" required v-model="role" />
     <br />
     <input type="submit" value="Sign up" />
   </form>
-
-  <button @click="logout">Log out</button>
-
-  <p>Email: {{ email }}</p>
-  <p>Password: {{ password }}</p>
 </template>
 
 <script>
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import axios from "axios";
 
 export default {
   data() {
     return {
       email: "abc@gmail.com",
       password: "123456",
-      role: "",
+      role: "admin",
+      signedIn: null,
     };
   },
   methods: {
     handleSubmit() {
-      //TODO: validate stuff here
-      const auth = getAuth();
-      signInWithEmailAndPassword(auth, this.email, this.password)
-        .then((userCredential) => {
-          //signed in
-          const user = userCredential.user;
+      axios
+        .post(
+          "http://localhost:8081/signup",
+          {
+            email: this.email,
+            password: this.password,
+            role: this.role,
+          },
+          { withCredentials: true }
+        )
+        .then((res) => {
+          console.log("signup completed");
+          this.toggleSignedIn();
+          this.$router.push("/");
         })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          alert(error.message);
-        });
+        .catch((err) => console.log(err));
     },
-    logout() {
-      const auth = getAuth();
-      signOut(auth)
-        .then(() => {
-          // Sign-out successful.
-        })
-        .catch((error) => {
-          // An error happened.
-          console.log(error.message);
-        });
+    toggleSignedIn() {
+      this.signedIn = true;
+      this.emitter.emit("toggle-signedin", this.signedIn);
     },
   },
 };
