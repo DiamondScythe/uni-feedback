@@ -137,4 +137,4 @@ dist
 .pnp.*
 
 # uploaded files
-server\uploads\*
+server/uploads/
