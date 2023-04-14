@@ -76,10 +76,14 @@ const db2 = require("../db/ideas");
 // });
 
 app.post("/ideas", upload.single("file"), async (req, res) => {
-  const { title, body, user_id, category_id } = req.body; // These are the other form fields
-  const file = req.file; // This is the uploaded file
-
-  const results = await db2.createIdea(req.body);
+  const results = await db2.createIdea({
+    title: req.body.title,
+    body: req.body.body,
+    user_id: req.body.user_id,
+    category_id: req.body.category_id,
+    file_name: req.file.filename, // Add the uploaded file's filename to the object
+  });
+  console.log("file_path:" + req.file.filename);
   res.status(201).json({ id: results[0] });
 });
 
@@ -127,6 +131,7 @@ app.post("/email", async (req, res) => {
   }
 });
 
+//code for requesting data as CSV file
 app.get("/download", async (req, res) => {
   // Lấy dữ liệu từ database và chuyển đổi sang định dạng CSV
   await db2
