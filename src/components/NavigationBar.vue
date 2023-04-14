@@ -40,6 +40,11 @@ export default {
       this.isSignedIn = false;
     }
   },
+  mounted() {
+    this.emitter.on("toggle-signedin", (isSignedIn) => {
+      this.isSignedIn = isSignedIn;
+    });
+  },
   methods: {
     logout() {
       Cookies.remove("jwt");

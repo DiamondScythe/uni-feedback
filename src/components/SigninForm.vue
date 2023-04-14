@@ -1,5 +1,4 @@
 <template>
-  Signin
   <form @submit.prevent="login">
     <br />
     <label>Email </label>
@@ -11,8 +10,6 @@
     <br />
     <input type="submit" value="Log in" />
   </form>
-
-  <button @click="logout">Log out</button>
 
   <p>Email: {{ email }}</p>
   <p>Password: {{ password }}</p>
@@ -27,6 +24,7 @@ export default {
       email: "abc@gmail.com",
       password: "123456",
       role: "",
+      signedIn: false,
     };
   },
   methods: {
@@ -44,17 +42,13 @@ export default {
           console.log("login completed");
         })
         .catch((err) => console.log(err));
+
+      this.toggleSignedIn();
+      this.$router.push("/");
     },
-    logout() {
-      const auth = getAuth();
-      signOut(auth)
-        .then(() => {
-          // Sign-out successful.
-        })
-        .catch((error) => {
-          // An error happened.
-          console.log(error.message);
-        });
+    toggleSignedIn() {
+      this.signedIn = true;
+      this.emitter.emit("toggle-signedin", this.signedIn);
     },
   },
 };
