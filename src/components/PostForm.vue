@@ -21,6 +21,8 @@
       </option>
     </select>
 
+    <input type="file" ref="fileInput" @change="handleFileUpload" />
+
     <button>Post</button>
   </form>
 </template>
@@ -36,6 +38,7 @@ export default {
       user_id: "1",
       categories: [],
       selectedCategory: "",
+      file: null,
     };
   },
   mounted() {
@@ -44,14 +47,20 @@ export default {
     });
   },
   methods: {
+    handleFileUpload(event) {
+      this.file = event.target.files[0];
+    },
     handleSubmit() {
+      //create form data
+      const formData = new FormData();
+      formData.append("title", this.title);
+      formData.append("body", this.body);
+      formData.append("user_id", this.user_id);
+      formData.append("category_id", this.selectedCategory);
+      formData.append("file", this.file);
+
       axios
-        .post("http://localhost:8081/ideas", {
-          title: this.title,
-          body: this.body,
-          user_id: this.user_id,
-          category_id: this.selectedCategory,
-        })
+        .post("http://localhost:8081/ideas", formData)
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
     },

@@ -7,6 +7,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const sqlite3 = require("sqlite3").verbose();
 require("dotenv").config();
+const path = require("path");
 
 const app = express();
 const fs = require("fs");
@@ -14,7 +15,9 @@ const fastcsv = require("fast-csv");
 const JSZip = require("jszip");
 app.use(morgan("combined"));
 app.use(bodyParser.json());
-// app.use(cors());
+
+//for handling files
+const multer = require("multer");
 
 const mongoose = require("mongoose");
 const authRoutes = require("../routes/authRoutes");
@@ -42,10 +45,40 @@ mongoose
   })
   .catch((err) => console.log(err));
 
+//set up multer storage
+
+// Set up Multer storage options
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    const originalName = file.originalname;
+    const extension = path.extname(originalName);
+    cb(
+      null,
+      originalName.slice(0, -extension.length) + "-" + uniqueSuffix + extension
+    );
+  },
+});
+const upload = multer({ storage: storage });
+
+// Serve uploaded files statically
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 //db connection for general data
 const db2 = require("../db/ideas");
 
-app.post("/ideas", async (req, res) => {
+// app.post("/ideas", async (req, res) => {
+//   const results = await db2.createIdea(req.body);
+//   res.status(201).json({ id: results[0] });
+// });
+
+app.post("/ideas", upload.single("file"), async (req, res) => {
+  const { title, body, user_id, category_id } = req.body; // These are the other form fields
+  const file = req.file; // This is the uploaded file
+
   const results = await db2.createIdea(req.body);
   res.status(201).json({ id: results[0] });
 });
