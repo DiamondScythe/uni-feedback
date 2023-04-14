@@ -173,6 +173,13 @@ app.get("/ideavotes", async (req, res) => {
   res.status(200).json(results[0]);
 });
 
+//delete
+app.delete("/ideas", async (req, res) => {
+  const { id } = req.query;
+  const results = await db2.deleteIdea(id);
+  res.status(200).json(results);
+});
+
 //mongodb routes for user auth
 app.use(authRoutes);
 
