@@ -20,6 +20,7 @@
 
 <script>
 import { checkAuthStatus } from "../utils/auth.js";
+import Cookies from "js-cookie";
 
 export default {
   data() {
@@ -41,7 +42,8 @@ export default {
   },
   methods: {
     logout() {
-      console.log("logout");
+      Cookies.remove("jwt");
+      this.isSignedIn = false;
     },
   },
 };
