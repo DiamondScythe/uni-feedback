@@ -127,3 +127,16 @@ module.exports.deleteStaff = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+
+module.exports.addStaff = async (req, res) => {
+  const { email, password, role } = req.body;
+
+  try {
+    const user = await User.create({ email, password, role });
+    const token = createToken(user._id);
+    res.status(201).json({ user: user._id });
+  } catch (err) {
+    const errors = handleErrors(err);
+    res.status(400).json({ errors });
+  }
+};
