@@ -1,12 +1,16 @@
 <template>
   Signup
-  <form @submit.prevent="handleSubmit">
+  <form @submit.prevent="handleSubmit" novalidate>
     <br />
     <label>Email </label>
     <input type="email" required v-model="email" />
     <br />
+    <span class="error">{{ emailError }}</span>
+    <br />
     <label>Password </label>
     <input type="password" required v-model="password" />
+    <br />
+    <span class="error">{{ passwordError }}</span>
     <br />
     <label>Role </label>
     <input type="text" required v-model="role" />
@@ -25,10 +29,13 @@ export default {
       password: "123456",
       role: "admin",
       signedIn: null,
+      emailError: null,
+      passwordError: null,
     };
   },
   methods: {
     handleSubmit() {
+      this.resetErrors();
       axios
         .post(
           "http://localhost:8081/signup",
@@ -44,11 +51,19 @@ export default {
           this.toggleSignedIn();
           this.$router.push("/");
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          this.emailError = err.response.data.errors.email;
+          this.passwordError = err.response.data.errors.password;
+        });
     },
     toggleSignedIn() {
       this.signedIn = true;
       this.emitter.emit("toggle-signedin", this.signedIn);
+    },
+    resetErrors() {
+      this.emailError = null;
+      this.passwordError = null;
     },
   },
 };
