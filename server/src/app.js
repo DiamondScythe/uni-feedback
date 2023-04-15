@@ -96,11 +96,6 @@ app.get("/ideas", async (req, res) => {
   res.status(200).json({ ideas: results });
 });
 
-app.get("/categories", async (req, res) => {
-  const results = await db2.getAllCategories();
-  res.status(200).json({ categories: results });
-});
-
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -219,6 +214,23 @@ app.get("/ideavotes", async (req, res) => {
 app.delete("/ideas", async (req, res) => {
   const { id } = req.query;
   const results = await db2.deleteIdea(id);
+  res.status(200).json(results);
+});
+
+//categories
+app.post("/categories", async (req, res) => {
+  const results = await db2.createCategory(req.body);
+  res.status(201).json({ id: results[0] });
+});
+
+app.get("/categories", async (req, res) => {
+  const results = await db2.getAllCategories();
+  res.status(200).json({ categories: results });
+});
+
+app.delete("/categories", async (req, res) => {
+  const { id } = req.query;
+  const results = await db2.deleteCategory(id);
   res.status(200).json(results);
 });
 

@@ -11,12 +11,17 @@
       <td>{{ category.name }}</td>
       <td>{{ getNumberOfIdeas(category.id) }}</td>
       <td>
-        <button>Delete</button>
+        <button @click="confirmDelete(category.id)">Delete</button>
       </td>
     </tr>
   </table>
   <br />
-  <AddNewCategory></AddNewCategory>
+  <form @submit.prevent="handleSubmit">
+    <br />
+    <label>Category name: </label>
+    <input type="text" required v-model="name" />
+    <button>Add</button>
+  </form>
 </template>
 
 <script>
@@ -43,9 +48,47 @@ export default {
     });
   },
   methods: {
+    handleSubmit() {
+      axios
+        .post("http://localhost:8081/categories", {
+          name: this.name,
+        })
+        .then((res) => {
+          return axios.get("http://localhost:8081/categories");
+        })
+        .then((res) => {
+          this.categories = res.data.categories;
+        })
+        .catch((err) => console.log(err));
+    },
+    confirmDelete(id) {
+      //checks if category has ideas
+      if (this.getNumberOfIdeas(id) > 0) {
+        alert("Cannot delete category with ideas");
+        return;
+      } else {
+        if (confirm("Are you sure you want to delete this item?")) {
+          this.deleteItem(id);
+        }
+      }
+    },
     getNumberOfIdeas(category_id) {
       return this.ideas.filter((idea) => idea.category_id === category_id)
         .length;
+    },
+    deleteItem(id) {
+      axios
+        .delete("http://localhost:8081/categories?id=" + id)
+        .then((res) => {
+          console.log(res);
+          return axios.get("http://localhost:8081/categories");
+        })
+        .then((res) => {
+          this.categories = res.data.categories;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

@@ -8,6 +8,14 @@ function getAllIdeas() {
   return knex("Ideas").select("*");
 }
 
+function createCategory(category) {
+  return knex("Categories").insert(category);
+}
+
+function deleteCategory(id) {
+  return knex("Categories").where("id", id).del();
+}
+
 function getAllCategories() {
   return knex("Categories").select("*");
 }
@@ -58,4 +66,6 @@ module.exports = {
   deleteIdea,
   getAllIdeaVotes,
   voteIdea,
+  createCategory,
+  deleteCategory,
 };
