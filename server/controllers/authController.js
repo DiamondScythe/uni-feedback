@@ -109,3 +109,12 @@ module.exports.user_auth = (req, res) => {
     console.log("auth failed");
   }
 };
+
+module.exports.getAllStaff = async (req, res) => {
+  try {
+    const staff = await User.getAllStaffInfo();
+    res.status(200).json(staff);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};

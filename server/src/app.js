@@ -19,8 +19,12 @@ app.use(bodyParser.json());
 //for handling files
 const multer = require("multer");
 
+//mongodb stuff
 const mongoose = require("mongoose");
 const authRoutes = require("../routes/authRoutes");
+const staffRoutes = require("../routes/staffRoutes");
+
+//for cookies
 const cookieParser = require("cookie-parser");
 
 app.use(express.json());
@@ -234,7 +238,8 @@ app.delete("/categories", async (req, res) => {
   res.status(200).json(results);
 });
 
-//mongodb routes for user auth
+//mongodb routes for user auth and staff info
 app.use(authRoutes);
+app.use(staffRoutes);
 
 app.listen(8081, () => console.log("server is now running on port 8081"));

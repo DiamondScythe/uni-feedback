@@ -53,6 +53,16 @@ userSchema.statics.getUserInfo = async function (id) {
   }
 };
 
+// static method to get all staff' info (except for password)
+userSchema.statics.getAllStaffInfo = async function () {
+  const users = await this.find({}, { password: 0 });
+  if (users) {
+    return users;
+  } else {
+    throw Error("no users found");
+  }
+};
+
 const User = mongoose.model("user", userSchema);
 
 module.exports = User;
