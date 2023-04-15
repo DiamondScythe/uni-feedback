@@ -38,4 +38,9 @@ nav a {
 nav a.router-link-exact-active {
   color: #28cd83;
 }
+
+@font-face {
+  font-family: "Game-of-Thrones";
+  src:local("Game-of-Thrones"),url(./fonts/Game-of-Thrones.ttf) format("truetype");
+}
 </style>
