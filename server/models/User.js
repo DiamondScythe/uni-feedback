@@ -63,6 +63,16 @@ userSchema.statics.getAllStaffInfo = async function () {
   }
 };
 
+//static method to delete one staff based on their id
+userSchema.statics.deleteStaff = async function (id) {
+  const user = await this.findOneAndDelete({ _id: id });
+  if (user) {
+    return user;
+  } else {
+    throw Error("no user found");
+  }
+};
+
 const User = mongoose.model("user", userSchema);
 
 module.exports = User;

@@ -118,3 +118,12 @@ module.exports.getAllStaff = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+
+module.exports.deleteStaff = async (req, res) => {
+  try {
+    const staff = await User.deleteOne({ _id: req.query.id });
+    res.status(200).json(staff);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
