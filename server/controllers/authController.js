@@ -38,7 +38,7 @@ const handleErrors = (err) => {
 // create json web token
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
-  return jwt.sign({ id }, "net ninja secret", {
+  return jwt.sign({ id }, "za secret", {
     expiresIn: maxAge,
   });
 };
@@ -78,14 +78,14 @@ module.exports.login_post = async (req, res) => {
   } catch (err) {
     const errors = handleErrors(err);
     res.status(400).json({ errors });
-    console.log("Login failed");
+    console.log(errors);
   }
 };
 
 module.exports.user_auth = (req, res) => {
   if (req.headers.authorization) {
     const token = req.headers.authorization.split(" ")[1];
-    jwt.verify(token, "net ninja secret", async (err, decoded) => {
+    jwt.verify(token, "za secret", async (err, decoded) => {
       if (err) {
         res.status(401).json({
           isAuthenticated: false,
