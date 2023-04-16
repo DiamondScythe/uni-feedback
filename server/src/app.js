@@ -78,10 +78,13 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 //db connection for general data
 const db2 = require("../db/ideas");
 
-// app.post("/ideas", async (req, res) => {
-//   const results = await db2.createIdea(req.body);
-//   res.status(201).json({ id: results[0] });
-// });
+//route for downloading files in upload folder
+app.get("/download/:file(*)", (req, res) => {
+  var file = req.params.file;
+  var fileLocation = path.join("./uploads", file);
+  console.log(fileLocation);
+  res.download(fileLocation, file);
+});
 
 app.post("/ideas", upload.single("file"), async (req, res) => {
   const results = await db2.createIdea({
@@ -135,7 +138,7 @@ app.post("/email", async (req, res) => {
 });
 
 //code for requesting data as CSV file
-app.get("/download", async (req, res) => {
+app.get("/downloadCSV", async (req, res) => {
   // Lấy dữ liệu từ database và chuyển đổi sang định dạng CSV
   await db2
     .getAllIdeas()

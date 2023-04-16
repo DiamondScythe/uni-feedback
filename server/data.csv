@@ -1,7 +1,11 @@
-id,title,body,user_id,category_id
-1,Water drainer inside building,Need me some water drainer,1,1
-2,Build playground,stuff,1,1
-3,Hire more people,plls,1,2
-4,hfghfhf,fghffghf,1,1
-5,sfsdfsdf,dfgdfgdfgfdg,1,1
-6,Improve cooling systems,asdsadfs,1,1
+id,title,body,user_id,category_id,file_name
+2,Build playground,stuff,1,1,
+3,Hire more people,plls,1,2,
+5,sfsdfsdf,dfgdfgdfgfdg,1,1,
+6,Improve cooling systems,asdsadfs,1,1,
+7,ABV,fdfsfsfsdfs,1,1,
+8,aBVSdasfs,2dfsdf,1,1,
+11,123542,asdasdasdasdasd,1,2,
+12,dfsdfsdfsdf,sdfsdfsdf,1,2,
+13,sdf312,sdfsdfsdf,1,1,
+14,test,testin,1,1,ex2-1681465643999-762515592.docx
