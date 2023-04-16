@@ -87,14 +87,20 @@ app.get("/download/:file(*)", (req, res) => {
 });
 
 app.post("/ideas", upload.single("file"), async (req, res) => {
+  const currentDate = new Date();
+  const date = currentDate.toLocaleDateString("en-GB"); // 'en-GB' gives date format as DD/MM/YYYY
+
+  const uploadedFileName = req.file ? req.file.filename : null;
+
   const results = await db2.createIdea({
     title: req.body.title,
     body: req.body.body,
     user_id: req.body.user_id,
     category_id: req.body.category_id,
-    file_name: req.file.filename, // Add the uploaded file's filename to the object
+    file_name: uploadedFileName,
+    uploaded_date: date,
   });
-  console.log("file_path:" + req.file.filename);
+
   res.status(201).json({ id: results[0] });
 });
 
