@@ -7,7 +7,7 @@
       <div class="menu">
         <router-link to="/signup" v-if="!isSignedIn">Sign Up </router-link>
         <router-link to="/login" v-if="!isSignedIn">Login </router-link>
-        <router-link to="/admin" v-if="isSignedIn"
+        <router-link to="/admin" v-if="isSignedIn && isAdmin"
           >Admin Dashboard
         </router-link>
         <a href="" @click.prevent="logout" v-if="isSignedIn">Logout </a>
@@ -27,29 +27,53 @@ export default {
     return {
       isSignedIn: false,
       userEmail: "",
+      isAdmin: null,
     };
   },
   async created() {
     //checkAuthStatus returns a promise, so you have to use await to get the value.
     //You can't use the value of a promise directly.
     const info = await checkAuthStatus();
-    if (info) {
+    if (info.isAuthenticated) {
       //get user data here
       this.isSignedIn = info.isAuthenticated;
       this.userEmail = info.user.email;
+      //checks whether the user is an admin or not
+      if (info.user.role === "Admin") {
+        this.isAdmin = true;
+      } else {
+        this.isAdmin = false;
+      }
     } else {
       this.isSignedIn = false;
     }
   },
   mounted() {
     this.emitter.on("toggle-signedin", (isSignedIn) => {
-      this.isSignedIn = isSignedIn;
+      this.updateInfo();
     });
   },
   methods: {
     logout() {
       Cookies.remove("jwt");
       this.isSignedIn = false;
+    },
+    //the below method is used to update the info on the nav bar once the user has signed in
+    async updateInfo() {
+      const info = await checkAuthStatus();
+      if (info.isAuthenticated) {
+        //get user data here
+        this.isSignedIn = info.isAuthenticated;
+        this.userEmail = info.user.email;
+        //checks whether the user is an admin or not
+        if (info.user.role === "Admin") {
+          this.isAdmin = true;
+        } else {
+          this.isAdmin = false;
+        }
+      } else {
+        this.isSignedIn = false;
+      }
     },
   },
 };

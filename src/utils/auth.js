@@ -23,11 +23,11 @@ export async function checkAuthStatus() {
     if (response.data.isAuthenticated) {
       return response.data;
     } else {
-      return false;
+      return null;
     }
   } catch (error) {
     console.log(error);
-    return false;
+    return null;
   }
 }
 

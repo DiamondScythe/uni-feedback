@@ -7,6 +7,7 @@ import SignupView from "../views/SignupView.vue";
 import AdminView from "../views/AdminDashboard.vue";
 
 import { getJwtToken } from "@/utils/auth";
+import { checkAuthStatus } from "@/utils/auth";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -42,6 +43,7 @@ const routes = [
     path: "/admin",
     name: "admin",
     component: AdminView,
+    meta: { requiresAuth: true, requiresAdmin: true },
   },
 ];
 
@@ -50,30 +52,61 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+// router.beforeEach((to, from, next) => {
+//   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+//   const token = getJwtToken();
+
+//   if (requiresAuth) {
+//     if (token) {
+//       axios
+//         .get("http://localhost:8081/userAuth", {
+//           headers: {
+//             Authorization: "Bearer " + Cookies.get("jwt"), // get JWT token from browser's cookies
+//           },
+//         })
+//         .then((response) => {
+//           if (response.data.isAuthenticated) {
+//             console.log("User info:", response.data.user);
+//             next();
+//           } else {
+//             next("/login");
+//           }
+//         })
+//         .catch((error) => {
+//           console.log(error);
+//           next("/login");
+//         });
+//     } else {
+//       next("/login");
+//     }
+//   } else {
+//     next();
+//   }
+// });
+
+router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
-  const token = getJwtToken();
+  const requiresAdmin = to.matched.some((record) => record.meta.requiresAdmin);
+  const info = await checkAuthStatus();
+  let isAuthenticated = false;
+  let role = "";
+
+  if (info) {
+    isAuthenticated = info.isAuthenticated;
+    role = info.user.role;
+  }
 
   if (requiresAuth) {
-    if (token) {
-      axios
-        .get("http://localhost:8081/userAuth", {
-          headers: {
-            Authorization: "Bearer " + Cookies.get("jwt"), // get JWT token from browser's cookies
-          },
-        })
-        .then((response) => {
-          if (response.data.isAuthenticated) {
-            console.log("User info:", response.data.user);
-            next();
-          } else {
-            next("/login");
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          next("/login");
-        });
+    if (isAuthenticated) {
+      if (requiresAdmin) {
+        if (role === "Admin") {
+          next();
+        } else {
+          next("/");
+        }
+      } else {
+        next();
+      }
     } else {
       next("/login");
     }
