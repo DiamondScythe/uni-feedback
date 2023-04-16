@@ -264,6 +264,11 @@ app.post("/closureDates", async (req, res) => {
   res.status(201).json({ id: results[0] });
 });
 
+app.get("/closureDates", async (req, res) => {
+  const results = await db1.getAllClosureDates();
+  res.status(200).json(results[0]);
+});
+
 // app.post("/voteIdea", async (req, res) => {
 //   const results = await db2.voteIdea(req.body);
 //   res.status(201);
@@ -272,5 +277,9 @@ app.post("/closureDates", async (req, res) => {
 //mongodb routes for user auth and staff info
 app.use(authRoutes);
 app.use(staffRoutes);
+
+const date = new Date();
+const isoString = date.toISOString();
+console.log(isoString);
 
 app.listen(8081, () => console.log("server is now running on port 8081"));

@@ -26,6 +26,11 @@ function createClosureDate(closureDate) {
     });
 }
 
+function getAllClosureDates() {
+  return knex("ClosureDates").where({ id: 1 });
+}
+
 module.exports = {
   createClosureDate,
+  getAllClosureDates,
 };

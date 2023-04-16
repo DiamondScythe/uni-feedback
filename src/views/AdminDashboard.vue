@@ -7,6 +7,7 @@
         <li><a href="#" @click="staffOn">Staff Management</a></li>
         <li><a href="#" @click="ideaOn">Idea Management</a></li>
         <li><a href="#" @click="dataOn">Data Management</a></li>
+        <li><a href="#" @click="closureOn">Closure Management</a></li>
       </ul>
     </div>
     <div class="content">
@@ -15,6 +16,7 @@
       <StaffManagement v-if="staffShow"></StaffManagement>
       <IdeaManagement v-if="ideaShow"></IdeaManagement>
       <DataManagement v-if="dataShow"></DataManagement>
+      <ClosureManagement v-if="closureShow"></ClosureManagement>
     </div>
   </div>
 </template>
@@ -24,6 +26,7 @@ import CategoryManagement from "../components/Admin/CategoryManagement.vue";
 import StaffManagement from "../components/Admin/StaffManagement.vue";
 import IdeaManagement from "../components/Admin/IdeaManagement.vue";
 import DataManagement from "../components/Admin/DataManagement.vue";
+import ClosureManagement from "../components/Admin/ClosureManagement.vue";
 
 export default {
   data() {
@@ -32,6 +35,7 @@ export default {
       categoryShow: true,
       staffShow: false,
       dataShow: false,
+      closureShow: false,
     };
   },
   components: {
@@ -39,6 +43,7 @@ export default {
     StaffManagement,
     IdeaManagement,
     DataManagement,
+    ClosureManagement,
   },
   methods: {
     categoryOn() {
@@ -46,24 +51,35 @@ export default {
       this.staffShow = false;
       this.ideaShow = false;
       this.dataShow = false;
+      this.closureShow = false;
     },
     staffOn() {
       this.categoryShow = false;
       this.staffShow = true;
       this.ideaShow = false;
       this.dataShow = false;
+      this.closureShow = false;
     },
     ideaOn() {
       this.categoryShow = false;
       this.staffShow = false;
       this.ideaShow = true;
       this.dataShow = false;
+      this.closureShow = false;
     },
     dataOn() {
       this.categoryShow = false;
       this.staffShow = false;
       this.ideaShow = false;
       this.dataShow = true;
+      this.closureShow = false;
+    },
+    closureOn() {
+      this.categoryShow = false;
+      this.staffShow = false;
+      this.ideaShow = false;
+      this.dataShow = false;
+      this.closureShow = true;
     },
   },
 };
