@@ -273,4 +273,4 @@ app.post("/closureDates", async (req, res) => {
 app.use(authRoutes);
 app.use(staffRoutes);
 
-app.listen(8081, () => console.log("server is now running on port 8081"));
+app.listen(3777, () => console.log("server is now running on port 3777"));
