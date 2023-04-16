@@ -1,8 +1,11 @@
 <template>
-  <button @click="upvoteAction">Upvote</button>
-  <button @click="middleVoteAction">Neutral vote</button>
-  <button @click="downvoteAction">Downvote</button>
-  Total votes: {{ totalVotes }}
+  <body>
+  <h5>Vote this idea:</h5>
+  <button class= "upvote" @click="upvoteAction">Upvote</button>
+  <button class= "neutralvote" @click="middleVoteAction">Neutral vote</button>
+  <button class= "downvote" @click="downvoteAction">Downvote</button>
+  <div>Total votes: {{ totalVotes }}</div>
+  </body>
 </template>
 
 <script>
@@ -68,4 +71,34 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.upvote {
+  background-color: white;
+  color: black;
+  border: 2px solid #4CAF50; /* Green */
+  margin: 5px;
+  border-radius: 4px;
+}
+
+.neutralvote {
+  background-color: white;
+  color: black;
+  border: 2px solid #0000FF; /* Green */
+  margin: 5px;
+  border-radius: 4px;
+}
+
+.downvote {
+  background-color: white;
+  color: black;
+  border: 2px solid #EE4B2B; /* Green */
+  margin: 5px;
+  border-radius: 4px;
+}
+body{
+    background:#F0FFFF;
+    border: 3px black;
+    border-radius: 15px;
+    box-shadow: 10px 10px 5px lightblue;
+}
+</style>
