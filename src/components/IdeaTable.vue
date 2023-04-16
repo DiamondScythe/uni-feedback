@@ -1,4 +1,12 @@
 <template>
+  Sorting:
+  <select v-model="selectedSort">
+    <option value="default">Default</option>
+    <option value="sortAlphabetically">Sort Alphabetically</option>
+    <option value="sortAlphabeticallyReverse">
+      Sort Reverse Alphabetically
+    </option>
+  </select>
   <table id="ideaTable">
     <tr>
       <th>idea</th>
@@ -34,6 +42,8 @@ import axios from "axios";
 export default {
   data() {
     return {
+      selectedSort: "default",
+
       ideas: [],
       categories: [],
 
@@ -46,10 +56,13 @@ export default {
     paginatedItems() {
       const startIndex = (this.currentPage - 1) * this.itemsPerPage;
       const endIndex = startIndex + this.itemsPerPage;
-      return this.ideas.slice(startIndex, endIndex);
+      return this.sortedIdeas.slice(startIndex, endIndex);
     },
     totalPages() {
       return Math.ceil(this.ideas.length / this.itemsPerPage);
+    },
+    sortedIdeas() {
+      return this.sortIdeas(this.ideas);
     },
   },
   mounted() {
@@ -92,6 +105,26 @@ export default {
     getCategoryName(id) {
       const category = this.categories.find((category) => category.id === id);
       return category ? category.name : null; // return category name if found, null otherwise
+    },
+
+    //used to sort posts
+    sortIdeas() {
+      let sorted = [...this.ideas];
+      if (this.selectedSort === "sortAlphabetically") {
+        sorted.sort((a, b) => a.title.localeCompare(b.title));
+      } else if (this.selectedSort === "sortAlphabeticallyReverse") {
+        sorted.sort((a, b) => b.title.localeCompare(a.title));
+      } else if (this.selectedSort === "default") {
+        sorted.sort((a, b) => a.id - b.id);
+      }
+      return sorted;
+    },
+  },
+
+  //watch for the sort selector change
+  watch: {
+    selectedSort() {
+      this.sortIdeas();
     },
   },
 };
