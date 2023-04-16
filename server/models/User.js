@@ -44,7 +44,7 @@ userSchema.statics.login = async function (email, password) {
 
 // static method to get user info based on id
 userSchema.statics.getUserInfo = async function (id) {
-  const user = await this.findOne({ _id: id });
+  const user = await this.findOne({ _id: id }, { password: 0 });
   if (user) {
     return user;
   } else {
