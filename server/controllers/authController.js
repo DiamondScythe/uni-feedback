@@ -93,12 +93,20 @@ module.exports.user_auth = (req, res) => {
         });
         console.log("auth failed");
       } else {
-        const user = await User.getUserInfo(decoded.id);
-        res.json({
-          isAuthenticated: true,
-          user: user,
-        });
-        console.log("auth completed");
+        try {
+          const user = await User.getUserInfo(decoded.id);
+          res.json({
+            isAuthenticated: true,
+            user: user,
+          });
+          console.log("auth completed");
+        } catch (err) {
+          res.status(401).json({
+            isAuthenticated: false,
+            message: "Valid token, but user information cannot be retrieved",
+          });
+          console.log("auth failed", err.message);
+        }
       }
     });
   } else {

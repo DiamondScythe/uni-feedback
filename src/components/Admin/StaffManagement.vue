@@ -93,6 +93,7 @@ export default {
         })
         .then((res) => {
           this.staff = res.data;
+          this.clearForm();
         })
         .catch((err) => {
           console.log(err);
@@ -103,6 +104,11 @@ export default {
     resetErrors() {
       this.emailError = null;
       this.passwordError = null;
+    },
+    clearForm() {
+      this.email = "";
+      this.password = "";
+      this.role = "Staff";
     },
   },
 };

@@ -58,6 +58,7 @@ export default {
         })
         .then((res) => {
           this.categories = res.data.categories;
+          this.name = "";
         })
         .catch((err) => console.log(err));
     },
