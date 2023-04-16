@@ -20,16 +20,16 @@
   <br />
   <form @submit.prevent="handleSubmit" novalidate>
     <h3>Add new employee here:</h3>
-    <label for="username">Username</label>
+    <label for="email">Email</label>
     <input type="email" required v-model="email" />
     <span class="error">{{ emailError }}</span>
     <label for="password">Password</label>
     <input type="password" required v-model="password" />
     <label for="role">Role:</label>
     <select class="select-list" required v-model="role">
-      <option class="select-list" value="admin">Admin</option>
-      <option class="select-list" value="manager">Manager</option>
-      <option selected class="select-list" value="staff">Staff</option>
+      <option class="select-list" value="Admin">Admin</option>
+      <option class="select-list" value="Manager">Manager</option>
+      <option selected class="select-list" value="Staff">Staff</option>
     </select>
     <span class="error">{{ passwordError }}</span>
     <button type="submit" value="Add">Add</button>
@@ -44,7 +44,7 @@ export default {
     return {
       email: "",
       password: "",
-      role: "staff",
+      role: "Staff",
       signedIn: null,
       emailError: null,
       passwordError: null,
