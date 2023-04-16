@@ -78,6 +78,9 @@ const upload = multer({ storage: storage });
 // Serve uploaded files statically
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+//db connection for closure dates
+const db1 = require("../db/closure.js");
+
 //db connection for general data
 const db2 = require("../db/ideas");
 
@@ -249,6 +252,17 @@ app.delete("/categories", async (req, res) => {
   const results = await db2.deleteCategory(id);
   res.status(200).json(results);
 });
+
+//closure dates management
+app.post("/closureDates", async (req, res) => {
+  const results = await db1.createClosureDate(req.body);
+  res.status(201).json({ id: results[0] });
+});
+
+// app.post("/voteIdea", async (req, res) => {
+//   const results = await db2.voteIdea(req.body);
+//   res.status(201);
+// });
 
 //mongodb routes for user auth and staff info
 app.use(authRoutes);
