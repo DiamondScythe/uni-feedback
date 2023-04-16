@@ -32,10 +32,11 @@ export default {
   async created() {
     //checkAuthStatus returns a promise, so you have to use await to get the value.
     //You can't use the value of a promise directly.
-    const isAuthenticated = await checkAuthStatus();
-    if (isAuthenticated) {
+    const info = await checkAuthStatus();
+    if (info) {
       //get user data here
-      this.isSignedIn = isAuthenticated;
+      this.isSignedIn = info.isAuthenticated;
+      this.userEmail = info.user.email;
     } else {
       this.isSignedIn = false;
     }

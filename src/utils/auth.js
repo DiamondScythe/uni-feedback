@@ -11,7 +11,7 @@ export function getJwtToken() {
   });
 }
 
-//this function checks for authorization status from api
+//this function checks for authorization status from api, then returns the reponse from the api, which includes isAuthenticated check and user object
 
 export async function checkAuthStatus() {
   try {
@@ -21,9 +21,7 @@ export async function checkAuthStatus() {
       },
     });
     if (response.data.isAuthenticated) {
-      // console.log("User info:", response.data.user);
-      // console.log("user authenticated:", response.data.isAuthenticated);
-      return true;
+      return response.data;
     } else {
       return false;
     }
@@ -32,3 +30,11 @@ export async function checkAuthStatus() {
     return false;
   }
 }
+
+//user object looks like this:
+// {
+//   _id: new ObjectId("643b7b28a54806a22669ebe5"),
+//   email: 'abc@gmail.com',
+//   role: 'Admin',
+//   __v: 0
+// }

@@ -99,6 +99,7 @@ module.exports.user_auth = (req, res) => {
             isAuthenticated: true,
             user: user,
           });
+          console.log(user);
         } catch (err) {
           res.status(401).json({
             isAuthenticated: false,
