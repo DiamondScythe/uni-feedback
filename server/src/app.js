@@ -53,7 +53,10 @@ mongoose
     )
   );
 
-//set up multer storage
+//checks for uploads folder and creates one if it doesn't exist
+if (!fs.existsSync("./uploads")) {
+  fs.mkdirSync("./uploads");
+}
 
 // Set up Multer storage options
 const storage = multer.diskStorage({
