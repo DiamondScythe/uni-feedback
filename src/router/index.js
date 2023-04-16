@@ -52,38 +52,6 @@ const router = createRouter({
   routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
-//   const token = getJwtToken();
-
-//   if (requiresAuth) {
-//     if (token) {
-//       axios
-//         .get("http://localhost:8081/userAuth", {
-//           headers: {
-//             Authorization: "Bearer " + Cookies.get("jwt"), // get JWT token from browser's cookies
-//           },
-//         })
-//         .then((response) => {
-//           if (response.data.isAuthenticated) {
-//             console.log("User info:", response.data.user);
-//             next();
-//           } else {
-//             next("/login");
-//           }
-//         })
-//         .catch((error) => {
-//           console.log(error);
-//           next("/login");
-//         });
-//     } else {
-//       next("/login");
-//     }
-//   } else {
-//     next();
-//   }
-// });
-
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
   const requiresAdmin = to.matched.some((record) => record.meta.requiresAdmin);
