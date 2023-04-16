@@ -1,11 +1,17 @@
-id,title,body,user_id,category_id,file_name
-2,Build playground,stuff,1,1,
-3,Hire more people,plls,1,2,
-5,sfsdfsdf,dfgdfgdfgfdg,1,1,
-6,Improve cooling systems,asdsadfs,1,1,
-7,ABV,fdfsfsfsdfs,1,1,
-8,aBVSdasfs,2dfsdf,1,1,
-11,123542,asdasdasdasdasd,1,2,
-12,dfsdfsdfsdf,sdfsdfsdf,1,2,
-13,sdf312,sdfsdfsdf,1,1,
-14,test,testin,1,1,ex2-1681465643999-762515592.docx
+id,title,body,user_id,category_id,file_name,uploaded_date
+2,Build playground,stuff,1,1,,
+3,Hire more people,plls,1,2,,
+5,sfsdfsdf,dfgdfgdfgfdg,1,1,,
+6,Improve cooling systems,asdsadfs,1,1,,
+7,ABV,fdfsfsfsdfs,1,1,,
+8,aBVSdasfs,2dfsdf,1,1,,
+11,123542,asdasdasdasdasd,1,2,,
+12,dfsdfsdfsdf,sdfsdfsdf,1,2,,
+13,sdf312,sdfsdfsdf,1,1,,
+14,test,testin,1,1,ex2-1681465643999-762515592.docx,
+15,asdasdasd,asdasdsadas,1,1,1676522094378039-1681648951863-550978382.jpg,16/04/2023
+16,asaddsfs,sdfsdfsdf,1,2,,16/04/2023
+17,asdasdasd,asdasdas,1,1,,16/04/2023
+18,asdasdas,dsaadsasdasd,1,1,,16/04/2023
+20,jhdfjgkhdkf,dfdshj,1,1,,17/04/2023
+21,jhdfjgkhdkf,dfdshj,1,1,,17/04/2023

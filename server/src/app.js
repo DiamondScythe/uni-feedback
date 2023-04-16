@@ -46,16 +46,17 @@ const corsMiddleware = cors(corsOptions);
 
 app.use(corsMiddleware);
 //database connection for user auth
-const dbURI = "mongodb://localhost:27017/uni-feedback";
+const dbURI = "mongodb://127.0.0.1:27017/uni-feedback";
 mongoose
   .connect(dbURI)
   .then((result) => {
     console.log("connected to mongodb db");
   })
   .catch((err) =>
-    console.log(
+    {console.log(
       "connection to mongodb failed. Authorization will not work. Please install mongodb on your computer, and make sure mongod is running"
-    )
+    ),
+    console.log(err)}
   );
 
 //checks for uploads folder and creates one if it doesn't exist
@@ -138,10 +139,10 @@ app.post("/email", async (req, res) => {
 
     const msg = {
       from: `"Khuong" <${process.env.MAIL_USER}>`,
-      to: "khuongwhitelily@gmail.com",
+      to: email,
       subject: "Hello",
       html: "<b>Hello world?</b>",
-    };
+    };  
 
     const info = await transporter.sendMail(msg);
 
@@ -274,3 +275,5 @@ app.use(authRoutes);
 app.use(staffRoutes);
 
 app.listen(8081, () => console.log("server is now running on port 8081"));
+
+
