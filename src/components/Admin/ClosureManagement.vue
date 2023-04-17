@@ -53,18 +53,35 @@ export default {
         });
     },
     updateClosure() {
-      axios
-        .post("http://localhost:8081/closureDates", {
-          idea_closure: this.selectedIdeaClosure,
-          final_closure: this.selectedFinalClosure,
-        })
-        .then((response) => {
-          this.getClosure();
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      //if the selectedIdeaClosure is before the selectedFinalClosure, then the closure dates are updated.
+      if (this.checkClosureDates()) {
+        axios
+          .post("http://localhost:8081/closureDates", {
+            idea_closure: this.selectedIdeaClosure,
+            final_closure: this.selectedFinalClosure,
+          })
+          .then((response) => {
+            this.getClosure();
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        alert("The idea closure date must be before the final closure date.");
+      }
+    },
+
+    //the below method checks whether the selectedIdeaClosure is before the selectedFinalClosure.
+    //If it is, it returns true, otherwise it returns false.
+    checkClosureDates() {
+      if (
+        new Date(this.selectedIdeaClosure) < new Date(this.selectedFinalClosure)
+      ) {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
   mounted() {
