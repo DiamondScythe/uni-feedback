@@ -27,6 +27,9 @@ const staffRoutes = require("../routes/staffRoutes");
 //for cookies
 const cookieParser = require("cookie-parser");
 
+//for email stuff
+const { sendEmail } = require("../utils/email");
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -123,37 +126,6 @@ app.get("/ideas", async (req, res) => {
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.post("/email", async (req, res) => {
-  try {
-    const { email } = req.body; // destructed email value from request
-    let transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
-      secure: false,
-      auth: {
-        user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS,
-      },
-    });
-
-    const msg = {
-      from: `"Khuong" <${process.env.MAIL_USER}>`,
-      to: "khuongwhitelily@gmail.com",
-      subject: "Hello",
-      html: "<b>Hello world?</b>",
-    };
-
-    const info = await transporter.sendMail(msg);
-
-    console.log("Message sent: %s", info.messageId);
-
-    res.send("Email Sent!");
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
 //code for requesting data as CSV file
 app.get("/downloadCSV", async (req, res) => {
   // Lấy dữ liệu từ database và chuyển đổi sang định dạng CSV
@@ -204,7 +176,21 @@ app.get("/details", async (req, res) => {
 
 //post comments
 app.post("/comments", async (req, res) => {
+  //get the og post user id
+  const ogPostUserId = await db2.getIdeaUser(req.body.idea_id);
+  //get the og post user email address
+  const ogPostUserEmail = await db2.getUserEmail(ogPostUserId);
+
+  const msg = {
+    to: ogPostUserEmail,
+    from: `"TestEmail" <${process.env.EMAIL_ADDRESS}>`,
+    subject: "New Comment on your post",
+    text: "New Comment on your post",
+    html: `<strong>New Comment on your post</strong>`,
+  };
+
   const results = await db2.createComment(req.body);
+  sendEmail(msg);
   res.status(201).json();
 });
 
@@ -273,6 +259,18 @@ app.get("/closureDates", async (req, res) => {
 //   const results = await db2.voteIdea(req.body);
 //   res.status(201);
 // });
+
+//routes for email sending
+app.post("/email", async (req, res) => {
+  const msg = {
+    from: `"TestEmail" <${process.env.EMAIL_ADDRESS}>`,
+    to: "nhutoan399@gmail.com",
+    subject: "Hello",
+    html: "<b>Hello world?</b>",
+  };
+
+  sendEmail(msg);
+});
 
 //mongodb routes for user auth and staff info
 app.use(authRoutes);
