@@ -67,16 +67,14 @@ function getUserId(email) {
 }
 
 //the below knex function gets the user_id that's associated with a specific idea_id
+//used for email comment notification only
 function getIdeaUser(idea_id) {
   return knex("Ideas")
     .join("Users", "Ideas.user_id", "=", "Users.id")
     .where("Ideas.id", idea_id)
-    .select("Users.id");
-}
-
-//the below knex function gets the email address that's associated with a specific user_id
-function getUserEmail(user_id) {
-  return knex("Users").where("id", user_id).select("email");
+    .select("Users.id")
+    .first() // get the first result only
+    .then((result) => result.id); // extract the id value from the result object;
 }
 
 //the below knex function gets the user info from the database from the id:
@@ -97,7 +95,6 @@ module.exports = {
   createCategory,
   deleteCategory,
   getIdeaUser,
-  getUserEmail,
   createUser,
   getUserId,
   getUserInfo,

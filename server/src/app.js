@@ -174,12 +174,25 @@ app.get("/details", async (req, res) => {
   }
 });
 
+app.get("/getIdeaUser", async (req, res) => {
+  const { id } = req.query;
+  const results = await db2.getIdeaUser(id);
+  if (results.length > 0) {
+    res.status(200).json(results[0]);
+  } else {
+    res.status(404).json({ message: "No idea found with that ID" });
+  }
+});
+
 //post comments
 app.post("/comments", async (req, res) => {
   //get the og post user id
   const ogPostUserId = await db2.getIdeaUser(req.body.idea_id);
-  //get the og post user email address
-  const ogPostUserEmail = await db2.getUserEmail(ogPostUserId);
+  console.log("og user id: " + ogPostUserId);
+
+  const ogPostUserInfo = await db2.getUserInfo(ogPostUserId);
+  const ogPostUserEmail = ogPostUserInfo[0].email;
+  console.log("og email: " + ogPostUserEmail);
 
   const msg = {
     to: ogPostUserEmail,
