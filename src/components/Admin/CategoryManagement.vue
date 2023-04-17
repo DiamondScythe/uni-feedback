@@ -15,7 +15,7 @@
       </td>
     </tr>
   </table>
-  <br />
+  <br/>
 
   <h3>Or you can add new category:</h3>
   <div class="formbold-main-wrapper">
