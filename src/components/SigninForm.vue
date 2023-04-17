@@ -4,7 +4,7 @@
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form @submit.prevent="login">
+    <form @submit.prevent="login" >
         <h3>Please  Login  Here</h3>
         <label for="username">Username</label>
         <input type="email" required v-model="email" placeholder="Email" id="username">
@@ -116,35 +116,41 @@ body{
     right: -30px;
     bottom: -80px;
 }
-form{
-    height: 550px;
-    width: 400px;
-    background-color: rgba(255,255,255,0.13);
-    position: absolute;
-    transform: translate(-50%,-50%);
-    top: 50%;
-    left: 50%;
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 40px rgba(8,7,16,0.6);
-    padding: 50px 35px;
-}
-form *{
-    font-family: 'Poppins',sans-serif;
-    color: #ffffff;
-    letter-spacing: 0.5px;
-    outline: none;
-    border: none;
-}
-form h3{
-    font-size: 32px;
-    font-weight: 500;
-    font-family: "Game-of-Thrones";
-    line-height: 42px;
-    color:  #331C0E;
-    text-align: center;
-}
+    form {
+        height: 550px;
+        width: 400px;
+        background-color: rgba(255,255,255,0.13);
+        position: absolute;
+        transform: translate(-50%,-50%);
+        top: 50%;
+        left: 50%;
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255,255,255,0.1);
+        box-shadow: 0 0 40px rgba(8,7,16,0.6);
+        padding: 50px 35px;
+    }
+        form * {
+            font-family: 'Poppins',sans-serif;
+            color: #ffffff;
+            letter-spacing:2.5px;
+            outline: none;
+            border: none;
+            font-family: Monospace, 'Lucida Console', sans-serif;
+            font-weight: bold;
+            font-size: 60px;
+        }
+        form h3 {
+            font-size: 32px;
+            font-weight: 500;
+            font-family: "Game-of-Thrones";
+            line-height: 42px;
+            color: #331C0E;
+            text-align: center;
+            font-family: Monospace, 'Lucida Console', sans-serif;
+            font-weight: bold;
+            font-size: 45px;
+        }
 label{
     display: block;
     margin-top: 30px;
