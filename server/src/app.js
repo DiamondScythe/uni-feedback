@@ -151,14 +151,27 @@ app.get("/downloadCSV", async (req, res) => {
       csvStream
         .pipe(fs.createWriteStream("data.csv"))
         .on("finish", async () => {
-          // Nén file CSV thành file zip
+          // Nén file CSV và folder uploads thành file zip
           const zip = new JSZip();
           const dataFile = await fs.promises.readFile("data.csv");
           zip.file("data.csv", dataFile);
+
+          // Add the "uploads" directory to the zip file
+          const uploadsDir = path.join(__dirname, "../uploads");
+          const files = await fs.promises.readdir(uploadsDir);
+          for (const file of files) {
+            const filePath = path.join(uploadsDir, file);
+            const fileContent = await fs.promises.readFile(filePath);
+            zip.file(`uploads/${file}`, fileContent);
+          }
+
           const zipContent = await zip.generateAsync({ type: "nodebuffer" });
 
           // Trả về file zip để tải xuống
-          res.set("Content-Disposition", "attachment; filename=data.zip");
+          res.set(
+            "Content-Disposition",
+            "attachment; filename=data_and_uploads.zip"
+          );
           res.set("Content-Type", "application/zip");
           res.status(200).send(zipContent);
         });

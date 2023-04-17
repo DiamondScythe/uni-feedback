@@ -1,4 +1,7 @@
 <template>
+  <div>
+    Here is the pie chart that illustrates the number of ideas in each category:
+  </div>
   <canvas id="pie-chart"></canvas>
 </template>
 
