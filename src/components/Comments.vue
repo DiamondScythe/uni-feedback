@@ -39,11 +39,14 @@
 <script>
 import axios from "axios";
 import { getClosureDates } from "@/utils/closureCheck";
+import { checkAuthStatus } from "@/utils/auth";
 
 export default {
   props: ["idea_id"],
   data() {
     return {
+      userId: null,
+      userEmail: "",
       commentText: "",
       comments: [],
       closureDateCheck: true,
@@ -51,6 +54,16 @@ export default {
     };
   },
   async mounted() {
+    const info = await checkAuthStatus();
+    if (info.isAuthenticated) {
+      //get user data here
+      this.userEmail = info.user.email;
+    }
+    axios
+      .get("http://localhost:8081/getStaffId?email=" + this.userEmail)
+      .then((res) => {
+        this.userId = res.data.id;
+      });
     if (this.idea_id > 0) {
       axios
         .get("http://localhost:8081/comments?ideaId=" + this.idea_id)
@@ -75,7 +88,7 @@ export default {
         .post("http://localhost:8081/comments", {
           text: this.commentText,
           date_time: "today",
-          user_id: 1,
+          user_id: this.userId,
           idea_id: this.idea_id,
         })
         .then((res) => {

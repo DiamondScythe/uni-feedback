@@ -36,8 +36,8 @@ export default {
     return {
       title: "",
       body: "",
-      user_id: 1,
-      user_email: "",
+      userId: 1,
+      userEmail: "",
       categories: [],
       selectedCategory: "",
       file: null,
@@ -48,7 +48,6 @@ export default {
     if (info.isAuthenticated) {
       //get user data here
       this.userEmail = info.user.email;
-      //checks whether the user is an admin or not
     }
     axios.get("http://localhost:8081/categories").then((res) => {
       this.categories = res.data.categories;
@@ -57,7 +56,7 @@ export default {
     axios
       .get("http://localhost:8081/getStaffId?email=" + this.userEmail)
       .then((res) => {
-        this.user_id = res.data.id;
+        this.userId = res.data.id;
       });
   },
   methods: {
@@ -69,7 +68,7 @@ export default {
       const formData = new FormData();
       formData.append("title", this.title);
       formData.append("body", this.body);
-      formData.append("user_id", this.user_id);
+      formData.append("user_id", this.userId);
       formData.append("category_id", this.selectedCategory);
       formData.append("file", this.file);
 
