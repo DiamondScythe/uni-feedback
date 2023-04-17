@@ -192,14 +192,14 @@ app.post("/comments", async (req, res) => {
 
   const ogPostUserInfo = await db2.getUserInfo(ogPostUserId);
   const ogPostUserEmail = ogPostUserInfo[0].email;
-  console.log("og email: " + ogPostUserEmail);
 
+  //send email to user to notify them of new comment
   const msg = {
     to: ogPostUserEmail,
-    from: `"TestEmail" <${process.env.EMAIL_ADDRESS}>`,
-    subject: "New Comment on your post",
-    text: "New Comment on your post",
-    html: `<strong>New Comment on your post</strong>`,
+    from: `"Uni Feedback Systems" <${process.env.EMAIL_ADDRESS}>`,
+    subject: "New Comment on your idea",
+    text: "New Comment on your idea",
+    html: `<strong>New Comment on your idea</strong>`,
   };
 
   const results = await db2.createComment(req.body);

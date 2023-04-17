@@ -1,47 +1,57 @@
 <template>
-  Sorting:
-  <select v-model="selectedSort">
-    <option value="default">Default</option>
-    <option value="sortAlphabetically">Sort Alphabetically</option>
-    <option value="sortAlphabeticallyReverse">
-      Sort Reverse Alphabetically
-    </option>
-  </select>
-  <table id="ideaTable">
-    <tr>
-      <th>idea</th>
-      <th>type</th>
-      <th>actions</th>
-    </tr>
-    <tr v-for="idea in paginatedItems" :key="idea.id">
-      <th>{{ idea.title }}</th>
-      <th>{{ getCategoryName(idea.category_id) }}</th>
-      <th>
-        <router-link :to="{ name: 'details', params: { id: idea.id } }"
-          >Details</router-link
-        >
-        <button @click="confirmDelete(idea.id)">Delete</button>
-      </th>
-    </tr>
-  </table>
+  <div v-if="isAuthenticated">
+    Sorting:
+    <select v-model="selectedSort">
+      <option value="default">Default</option>
+      <option value="sortAlphabetically">Sort Alphabetically</option>
+      <option value="sortAlphabeticallyReverse">
+        Sort Reverse Alphabetically
+      </option>
+    </select>
+    <table id="ideaTable">
+      <tr>
+        <th>idea</th>
+        <th>type</th>
+        <th>actions</th>
+      </tr>
+      <tr v-for="idea in paginatedItems" :key="idea.id">
+        <th>{{ idea.title }}</th>
+        <th>{{ getCategoryName(idea.category_id) }}</th>
+        <th>
+          <router-link :to="{ name: 'details', params: { id: idea.id } }"
+            >Details</router-link
+          >
+          <button @click="confirmDelete(idea.id)" v-if="!isStaff">
+            Delete
+          </button>
+        </th>
+      </tr>
+    </table>
 
-  <div class="pagination">
-    <button @click="previousPage" :disabled="currentPage === 1">
-      Previous
-    </button>
-    <button @click="nextPage" :disabled="currentPage === totalPages">
-      Next
-    </button>
-    Current page: {{ currentPage }}/{{ totalPages }}
+    <div class="pagination">
+      <button @click="previousPage" :disabled="currentPage === 1">
+        Previous
+      </button>
+      <button @click="nextPage" :disabled="currentPage === totalPages">
+        Next
+      </button>
+      Current page: {{ currentPage }}/{{ totalPages }}
+    </div>
+  </div>
+  <div v-else>
+    <h2>Please log in to view ideas</h2>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import { checkAuthStatus } from "../utils/auth.js";
 
 export default {
   data() {
     return {
+      isAuthenticated: false,
+      isStaff: true,
       selectedSort: "default",
 
       ideas: [],
@@ -65,13 +75,26 @@ export default {
       return this.sortIdeas(this.ideas);
     },
   },
-  mounted() {
+  async mounted() {
     axios.get("http://localhost:8081/ideas").then((res) => {
       this.ideas = res.data.ideas;
     }),
       axios.get("http://localhost:8081/categories").then((res) => {
         this.categories = res.data.categories;
       });
+
+    //check user info first
+    const info = await checkAuthStatus();
+    if (info.isAuthenticated) {
+      //get user data here
+      this.isAuthenticated = true;
+      //checks whether the user is staff or not
+      if (info.user.role === "Staff") {
+        this.isStaff = true;
+      } else {
+        this.isStaff = false;
+      }
+    }
   },
   methods: {
     confirmDelete(id) {
