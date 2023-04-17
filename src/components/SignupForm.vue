@@ -54,6 +54,12 @@ export default {
           { withCredentials: true }
         )
         .then((res) => {
+          axios.post("http://localhost:8081/addUserInfo", {
+            email: this.email,
+            role: this.role,
+          });
+        })
+        .then((res) => {
           console.log("signup completed");
           this.toggleSignedIn();
           this.$router.push("/");

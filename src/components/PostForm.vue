@@ -29,22 +29,36 @@
 
 <script>
 import axios from "axios";
+import { checkAuthStatus } from "../utils/auth.js";
 
 export default {
   data() {
     return {
       title: "",
       body: "",
-      user_id: "1",
+      user_id: 1,
+      user_email: "",
       categories: [],
       selectedCategory: "",
       file: null,
     };
   },
-  mounted() {
+  async mounted() {
+    const info = await checkAuthStatus();
+    if (info.isAuthenticated) {
+      //get user data here
+      this.userEmail = info.user.email;
+      //checks whether the user is an admin or not
+    }
     axios.get("http://localhost:8081/categories").then((res) => {
       this.categories = res.data.categories;
     });
+    //get the sql user id based on email
+    axios
+      .get("http://localhost:8081/getStaffId?email=" + this.userEmail)
+      .then((res) => {
+        this.user_id = res.data.id;
+      });
   },
   methods: {
     handleFileUpload(event) {

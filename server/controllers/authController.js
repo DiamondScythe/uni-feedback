@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+const db2 = require("../db/ideas");
 
 // handle errors
 const handleErrors = (err) => {
@@ -115,6 +116,15 @@ module.exports.user_auth = (req, res) => {
       message: "Authorization header is missing",
     });
     console.log("auth failed");
+  }
+};
+
+module.exports.getStaffId = async (req, res) => {
+  try {
+    const staff = await db2.getUserId(req.query.email);
+    res.status(200).json(staff[0]);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
   }
 };
 

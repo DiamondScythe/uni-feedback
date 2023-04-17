@@ -63,6 +63,16 @@ userSchema.statics.getAllStaffInfo = async function () {
   }
 };
 
+//static method to get one staff info (except for password)
+userSchema.statics.getStaffInfo = async function (id) {
+  const user = await this.findOne({ _id: id }, { password: 0 });
+  if (user) {
+    return user;
+  } else {
+    throw Error("no user found");
+  }
+};
+
 //static method to delete one staff based on their id
 userSchema.statics.deleteStaff = async function (id) {
   const user = await this.findOneAndDelete({ _id: id });

@@ -272,6 +272,22 @@ app.post("/email", async (req, res) => {
   sendEmail(msg);
 });
 
+//add user info into sql db (not mongo)
+app.post("/addUserInfo", async (req, res) => {
+  const results = await db2.createUser({
+    email: req.body.email,
+    role: req.body.role,
+  });
+  res.status(201).json({ id: results[0] });
+});
+
+//get id from user email
+app.get("/getUserInfo", async (req, res) => {
+  const { email } = req.query;
+  const results = await db2.getUserId(email);
+  res.status(200).json(results[0]);
+});
+
 //mongodb routes for user auth and staff info
 app.use(authRoutes);
 app.use(staffRoutes);

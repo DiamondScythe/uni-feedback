@@ -56,6 +56,16 @@ function voteIdea(vote) {
     });
 }
 
+// add new user
+function createUser(user) {
+  return knex("Users").insert(user);
+}
+
+//the below knex function gets the user_id that's associated with a specific email address
+function getUserId(email) {
+  return knex("Users").where("email", email).select("id");
+}
+
 //the below knex function gets the user_id that's associated with a specific idea_id
 function getIdeaUser(idea_id) {
   return knex("Ideas")
@@ -83,4 +93,6 @@ module.exports = {
   deleteCategory,
   getIdeaUser,
   getUserEmail,
+  createUser,
+  getUserId,
 };
