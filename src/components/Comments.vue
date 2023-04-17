@@ -1,30 +1,44 @@
 <template>
-
-  <form class="comment-form" @submit.prevent="handleSubmit">
+  <div v-if="closureDateCheck">
+    <form class="comment-form" @submit.prevent="handleSubmit">
       <h3>Leave a comment</h3>
       <div class="form-group">
         <label for="comment">Comment:</label>
-        <textarea id="comment" name="comment" required v-model="commentText" placeholder="Your thoughts.."></textarea>
+        <textarea
+          id="comment"
+          name="comment"
+          required
+          v-model="commentText"
+          placeholder="Your thoughts.."
+        ></textarea>
       </div>
       <button type="submit">Post Comment</button>
-  </form>
-  
+    </form>
+  </div>
+  <div v-else>
+    <p>
+      The final closure date has been passed. You cannot add new comments to
+      this idea.
+    </p>
+  </div>
+
   <h2>Comments:</h2>
   <div class="comment-section" v-if="comments.length > 0">
     <li v-for="comment in comments" :key="comment.id">
-    <div class="comment" >
-        <div class="comment-body" >
-        <h4>Anonymous:</h4>
-        <h3> {{ comment.text }} </h3>
-        <span class="comment-date">April 16, 2023</span>
+      <div class="comment">
+        <div class="comment-body">
+          <h4>Anonymous:</h4>
+          <h3>{{ comment.text }}</h3>
+          <span class="comment-date">April 16, 2023</span>
+        </div>
       </div>
-    </div>
-    </li>  
+    </li>
   </div>
   <div v-else>No Comments Yet</div>
-  </template>
+</template>
 <script>
 import axios from "axios";
+import { getClosureDates } from "@/utils/closureCheck";
 
 export default {
   props: ["idea_id"],
@@ -32,9 +46,11 @@ export default {
     return {
       commentText: "",
       comments: [],
+      closureDateCheck: true,
+      finalClosureDate: null,
     };
   },
-  mounted() {
+  async mounted() {
     if (this.idea_id > 0) {
       axios
         .get("http://localhost:8081/comments?ideaId=" + this.idea_id)
@@ -44,6 +60,14 @@ export default {
     } else {
       console.log(this.idea_id);
     }
+
+    //check if the current date is before the closure date
+    const closureDates = await getClosureDates();
+    console.log(closureDates);
+    this.finalClosureDate = closureDates.final_closure;
+    //compares current date to closure date
+    this.closureDateCheck = new Date() < new Date(this.finalClosureDate);
+    console.log(this.closureDateCheck);
   },
   methods: {
     handleSubmit() {
@@ -143,7 +167,7 @@ export default {
 }
 
 button[type="submit"] {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   padding: 10px 20px;
   border: none;
