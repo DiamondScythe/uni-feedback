@@ -2,7 +2,8 @@
   <div v-if="isAuthenticated">
     Sorting:
     <select v-model="selectedSort">
-      <option value="default">Default</option>
+      <option value="newestFirst">Sort Newest First</option>
+      <option value="oldestFirst">Sort Oldest First</option>
       <option value="sortAlphabetically">Sort Alphabetically</option>
       <option value="sortAlphabeticallyReverse">
         Sort Reverse Alphabetically
@@ -52,7 +53,7 @@ export default {
     return {
       isAuthenticated: false,
       isStaff: true,
-      selectedSort: "default",
+      selectedSort: "newestFirst",
 
       ideas: [],
       categories: [],
@@ -137,8 +138,14 @@ export default {
         sorted.sort((a, b) => a.title.localeCompare(b.title));
       } else if (this.selectedSort === "sortAlphabeticallyReverse") {
         sorted.sort((a, b) => b.title.localeCompare(a.title));
-      } else if (this.selectedSort === "default") {
-        sorted.sort((a, b) => a.id - b.id);
+      } else if (this.selectedSort === "newestFirst") {
+        sorted.sort((a, b) => {
+          return new Date(b.uploaded_date) - new Date(a.uploaded_date);
+        });
+      } else if (this.selectedSort === "oldestFirst") {
+        sorted.sort((a, b) => {
+          return new Date(a.uploaded_date) - new Date(b.uploaded_date);
+        });
       }
       return sorted;
     },

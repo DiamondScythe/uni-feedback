@@ -102,7 +102,7 @@ app.get("/download/:file(*)", (req, res) => {
 
 app.post("/ideas", upload.single("file"), async (req, res) => {
   const currentDate = new Date();
-  const date = currentDate.toLocaleDateString("en-GB"); // 'en-GB' gives date format as DD/MM/YYYY
+  const isoDate = currentDate.toISOString();
 
   const uploadedFileName = req.file ? req.file.filename : null;
 
@@ -117,7 +117,7 @@ app.post("/ideas", upload.single("file"), async (req, res) => {
     user_id: req.body.user_id,
     category_id: req.body.category_id,
     file_name: uploadedFileName,
-    uploaded_date: date,
+    uploaded_date: isoDate,
   });
 
   const msg = {
@@ -335,9 +335,5 @@ app.get("/test", async (req, res) => {
 //mongodb routes for user auth and staff info
 app.use(authRoutes);
 app.use(staffRoutes);
-
-const date = new Date();
-const isoString = date.toISOString();
-console.log(isoString);
 
 app.listen(8081, () => console.log("server is now running on port 8081"));

@@ -23,7 +23,7 @@
             <div class="card-body">
               <div class="mb-3 d-flex justify-content-between">
                 <div>
-                  <span class="me-3">Posted on 22-11-2021</span>
+                  <span class="me-3">Posted on {{ formattedDate }}</span>
                   <span class="me-3">#16123222</span>
                 </div>
               </div>
@@ -159,6 +159,11 @@ export default {
     downloadLink() {
       //returns the link for downloading the file
       return "http://localhost:8081/download/" + this.details.file_name;
+    },
+    formattedDate() {
+      //returns the date in a readable format
+      const formattedDate = new Date(this.details.uploaded_date);
+      return formattedDate.toLocaleString();
     },
   },
   mounted() {
