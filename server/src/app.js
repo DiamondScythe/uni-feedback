@@ -288,6 +288,13 @@ app.get("/getUserInfo", async (req, res) => {
   res.status(200).json(results[0]);
 });
 
+//getuserinfo from id
+app.get("/user", async (req, res) => {
+  const { id } = req.query;
+  const results = await db2.getUserInfo(id);
+  res.status(200).json(results[0]);
+});
+
 //mongodb routes for user auth and staff info
 app.use(authRoutes);
 app.use(staffRoutes);

@@ -79,6 +79,11 @@ function getUserEmail(user_id) {
   return knex("Users").where("id", user_id).select("email");
 }
 
+//the below knex function gets the user info from the database from the id:
+function getUserInfo(id) {
+  return knex("Users").where("id", id).select("*");
+}
+
 module.exports = {
   createIdea,
   getAllIdeas,
@@ -95,4 +100,5 @@ module.exports = {
   getUserEmail,
   createUser,
   getUserId,
+  getUserInfo,
 };
