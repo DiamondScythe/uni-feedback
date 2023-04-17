@@ -9,8 +9,4 @@ router.get("/login", authController.login_get);
 router.post("/login", authController.login_post);
 router.get("/userAuth", authController.user_auth);
 
-router.get("/test", (req, res) => {
-  res.send("Hello World!");
-});
-
 module.exports = router;

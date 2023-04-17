@@ -106,6 +106,11 @@ app.post("/ideas", upload.single("file"), async (req, res) => {
 
   const uploadedFileName = req.file ? req.file.filename : null;
 
+  const managerEmails = await db2.getManagerEmails();
+  //This code uses the map method to transform the managerEmails
+  //array into a new array of email addresses.
+  const emailArray = managerEmails.map((manager) => manager.email);
+
   const results = await db2.createIdea({
     title: req.body.title,
     body: req.body.body,
@@ -114,6 +119,15 @@ app.post("/ideas", upload.single("file"), async (req, res) => {
     file_name: uploadedFileName,
     uploaded_date: date,
   });
+
+  const msg = {
+    to: emailArray,
+    from: `"Uni Feedback Systems" <${process.env.EMAIL_ADDRESS}>`,
+    subject: "A new idea has been posted",
+    text: "A new idea has been posted",
+    html: `<strong>A new idea has been posted</strong>`,
+  };
+  sendEmail(msg);
 
   res.status(201).json({ id: results[0] });
 });
@@ -201,9 +215,9 @@ app.post("/comments", async (req, res) => {
     text: "New Comment on your idea",
     html: `<strong>New Comment on your idea</strong>`,
   };
+  sendEmail(msg);
 
   const results = await db2.createComment(req.body);
-  sendEmail(msg);
   res.status(201).json();
 });
 
@@ -306,6 +320,16 @@ app.get("/user", async (req, res) => {
   const { id } = req.query;
   const results = await db2.getUserInfo(id);
   res.status(200).json(results[0]);
+});
+
+//test
+app.get("/test", async (req, res) => {
+  const managerEmails = await db2.getManagerEmails();
+  //This code uses the map method to transform the managerEmails
+  //array into a new array of email addresses.
+  const emailArray = managerEmails.map((manager) => manager.email);
+  console.log("manager emails: " + emailArray);
+  res.status(200).json(emailArray);
 });
 
 //mongodb routes for user auth and staff info

@@ -82,6 +82,11 @@ function getUserInfo(id) {
   return knex("Users").where("id", id).select("*");
 }
 
+//the below function returns an array of emails of users that have the "Manager" role
+function getManagerEmails() {
+  return knex("Users").where("role", "Manager").select("email");
+}
+
 module.exports = {
   createIdea,
   getAllIdeas,
@@ -98,4 +103,5 @@ module.exports = {
   createUser,
   getUserId,
   getUserInfo,
+  getManagerEmails,
 };
