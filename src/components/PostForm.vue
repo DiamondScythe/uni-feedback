@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form @submit.prevent="checkTerms">
     <br />
 
     <label>Post title </label>
@@ -23,6 +23,18 @@
 
     <input type="file" ref="fileInput" @change="handleFileUpload" />
 
+    <br />
+    <label>
+      <input type="checkbox" v-model="agreeToTerms" />
+      <p>
+        By uploading this post, I agree to the
+        <router-link to="/terms" target="_blank"
+          >terms and conditions</router-link
+        >.
+      </p>
+    </label>
+
+    <br />
     <button>Post</button>
   </form>
 </template>
@@ -40,6 +52,7 @@ export default {
       userEmail: "",
       categories: [],
       selectedCategory: "",
+      agreeToTerms: false,
       file: null,
     };
   },
@@ -63,6 +76,15 @@ export default {
     handleFileUpload(event) {
       this.file = event.target.files[0];
     },
+    //checks if the user has agreed to the terms and conditions
+    checkTerms() {
+      if (this.agreeToTerms) {
+        this.handleSubmit();
+      } else {
+        //alert the user that they need to agree to the terms and conditions
+        alert("You must agree to the terms and conditions");
+      }
+    },
     handleSubmit() {
       //create form data
       const formData = new FormData();
@@ -74,7 +96,10 @@ export default {
 
       axios
         .post("http://localhost:8081/ideas", formData)
-        .then((res) => console.log(res))
+        .then((res) => {
+          console.log(res);
+          this.$router.push({ name: "details", params: { id: res.data.id } });
+        })
         .catch((err) => console.log(err));
     },
   },

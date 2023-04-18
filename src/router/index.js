@@ -5,6 +5,7 @@ import PostView from "../views/PostView.vue";
 import DetailsView from "../views/DetailsView.vue";
 import SignupView from "../views/SignupView.vue";
 import AdminView from "../views/AdminDashboard.vue";
+import TermsView from "../views/TermsView.vue";
 
 import { getJwtToken } from "@/utils/auth";
 import { checkAuthStatus } from "@/utils/auth";
@@ -44,6 +45,11 @@ const routes = [
     name: "admin",
     component: AdminView,
     meta: { requiresAuth: true, requiresAdmin: true },
+  },
+  {
+    path: "/terms",
+    name: "terms",
+    component: TermsView,
   },
 ];
 
