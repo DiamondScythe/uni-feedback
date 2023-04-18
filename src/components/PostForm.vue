@@ -3,7 +3,7 @@
   <!-- Author: FormBold Team -->
   <!-- Learn More: https://formbold.com -->
   <div class="formbold-form-wrapper">
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="checkTerms">
       <div class="formbold-mb-3 formbold-input-wrapp">
       </div>
       <div class="formbold-mb-3">
@@ -54,7 +54,7 @@
         />
       </div>
       <div class=" formbold-mb-3">
-            <input id="checkbox" type="checkbox" required/>
+            <input id="checkbox" type="checkbox" required v-model="agreeToTerms"/>
             <label for="checkbox">I agree to these <router-link to="/terms" target="_blank">terms and conditions</router-link>.</label>
         </div>  
       <button class="formbold-btn">Post your idea</button>
@@ -66,7 +66,6 @@
 <script>
 import axios from "axios";
 import { checkAuthStatus } from "../utils/auth.js";
-
 export default {
   data() {
     return {
@@ -76,6 +75,7 @@ export default {
       userEmail: "",
       categories: [],
       selectedCategory: "",
+      agreeToTerms: false,
       file: null,
     };
   },
@@ -99,6 +99,15 @@ export default {
     handleFileUpload(event) {
       this.file = event.target.files[0];
     },
+    //checks if the user has agreed to the terms and conditions
+    checkTerms() {
+      if (this.agreeToTerms) {
+        this.handleSubmit();
+      } else {
+        //alert the user that they need to agree to the terms and conditions
+        alert("You must agree to the terms and conditions");
+      }
+    },
     handleSubmit() {
       //create form data
       const formData = new FormData();
@@ -107,10 +116,12 @@ export default {
       formData.append("user_id", this.userId);
       formData.append("category_id", this.selectedCategory);
       formData.append("file", this.file);
-
       axios
         .post("http://localhost:8081/ideas", formData)
-        .then((res) => console.log(res))
+        .then((res) => {
+          console.log(res);
+          this.$router.push({ name: "details", params: { id: res.data.id } });
+        })
         .catch((err) => console.log(err));
     },
   },

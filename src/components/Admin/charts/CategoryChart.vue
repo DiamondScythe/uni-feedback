@@ -1,8 +1,8 @@
 <template>
   <div>
-    Here is the pie chart that illustrates the number of ideas in each category:
+    The pie chart below illustrates the number of ideas in each category:
   </div>
-  <canvas id="pie-chart"></canvas>
+  <canvas id="pie-chart" style="max-height:650px"></canvas>
 </template>
 
 <script>

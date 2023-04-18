@@ -22,6 +22,7 @@ const routes = [
     path: "/login",
     name: "login",
     component: LoginView,
+    meta: { hideFooter: true },
   },
   {
     path: "/post",
@@ -39,6 +40,7 @@ const routes = [
     path: "/signup",
     name: "signup",
     component: SignupView,
+    meta: { hideFooter: true },
   },
   {
     path: "/admin",

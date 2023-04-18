@@ -168,8 +168,6 @@ margin: 0px auto;
 td , th{
  padding: 15px 20px;
  text-align: center;
- 
-
 }
 th{
  background-color: #ba68c8;
@@ -214,6 +212,7 @@ h3 {
     display: flex;
     max-height: 650px;
     margin-top:20px;
+    padding: 20px;
   }
 
   .formbold-form-wrapper {

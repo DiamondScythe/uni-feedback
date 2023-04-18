@@ -1,15 +1,17 @@
 <template>
   <div v-if="isAuthenticated">
-    Sorting:
-    <select v-model="selectedSort">
-      <option value="newestFirst">Sort Newest First</option>
-      <option value="oldestFirst">Sort Oldest First</option>
-      <option value="sortAlphabetically">Sort Alphabetically</option>
-      <option value="sortAlphabeticallyReverse">
-        Sort Reverse Alphabetically
-      </option>
-    </select>
-    <table id="ideaTable">
+    <div>
+    <h5>Sorting:</h5>
+      <select class="formbold-form-box" v-model="selectedSort">
+        <option value="newestFirst">Sort Newest First</option>
+        <option value="oldestFirst">Sort Oldest First</option>
+        <option value="sortAlphabetically">Sort Alphabetically</option>
+        <option value="sortAlphabeticallyReverse">
+          Sort Reverse Alphabetically
+        </option>
+      </select>
+    </div>
+    <table id="ideaTable" style="">
       <tr>
         <th>idea</th>
         <th>type</th>
@@ -20,7 +22,7 @@
         <td>{{ getCategoryName(idea.category_id) }}</td>
         <td>
           <router-link :to="{ name: 'details', params: { id: idea.id } }"
-            >Details</router-link
+            >Details   </router-link
           >
           <button @click="confirmDelete(idea.id)" v-if="!isStaff">
             Delete
@@ -29,14 +31,14 @@
       </tr>
     </table>
 
-    <div class="pagination" style="margin-top: 5px;">
+    <div class="pagination" style="margin-top: 10px">
       <button @click="previousPage" :disabled="currentPage === 1">
         Previous
       </button>
       <button @click="nextPage" :disabled="currentPage === totalPages">
         Next
       </button>
-      Current page: {{ currentPage }}/{{ totalPages }}
+      <div>Current page: {{ currentPage }}/{{ totalPages }} </div>
     </div>
   </div>
   <div v-else>
@@ -59,7 +61,7 @@ export default {
       categories: [],
 
       //pagination settings
-      itemsPerPage: 4,
+      itemsPerPage: 6,
       currentPage: 1,
     };
   },
@@ -215,4 +217,42 @@ tr{
 tr:nth-child(even){
  background-color: #eeeeee;
 }
+
+/* Pagination styling:  */
+.pagination {
+  display: inline-block;
+}
+
+.pagination button {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.pagination button.active {
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+}
+
+.pagination button:hover:not(.active) {
+  background-color: #ddd;
+  border-radius: 5px;
+}
+.formbold-form-box {
+    margin: auto;
+    text-align: center;
+    width: 20%;
+    color: #07074D;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    margin-bottom: 10px;
+    border: 1px black;
+    border-width: 90%;
+    border-style: solid;
+    border-radius: 5px;
+  }
+
 </style>

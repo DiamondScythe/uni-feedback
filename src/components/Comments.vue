@@ -34,7 +34,7 @@
       </div>
     </li>
   </div>
-  <div v-else>No Comments Yet</div>
+  <div v-else><h4>No Comments Yet!!!</h4></div>
 </template>
 <script>
 import axios from "axios";

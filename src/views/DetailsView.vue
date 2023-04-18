@@ -9,7 +9,7 @@
   User id: {{ details.user_id }}
   {{ details }} -->
   <h1>Idea Detail Page</h1>
-  <div class="container-fluid" style="margin-top: 3%; height: 550px">
+  <div class="container-fluid" style="margin-top: 3%; height: 530px">
     <div class="container">
       <!-- Main content -->
       <div class="row">
@@ -94,6 +94,10 @@
             </div>
           </div>
           <!-- Payment -->
+          <PostVoting
+            v-if="details.id"
+            :user_id="details.user_id"
+            :idea_id="details.id"/>
         </div>
         <div class="col-lg-4">
           <!-- Customer Notes -->
@@ -120,11 +124,7 @@
               </address>
             </div>
           </div>
-          <PostVoting
-            v-if="details.id"
-            :user_id="details.user_id"
-            :idea_id="details.id"
-          />
+          
         </div>
       </div>
     </div>

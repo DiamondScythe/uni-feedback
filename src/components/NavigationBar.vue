@@ -4,15 +4,15 @@
       <div class="logo">
         <router-link to="/">University Feedback</router-link>
       </div>
-      <div class="menu">
-        <router-link to="/signup" v-if="!isSignedIn">Sign Up </router-link>
-        <router-link to="/login" v-if="!isSignedIn">Login </router-link>
-        <router-link to="/admin" v-if="isSignedIn && isAdmin"
-          >Admin Dashboard
-        </router-link>
-         <a href="" @click.prevent="logout" v-if="isSignedIn">Logout </a> 
-        <router-link to="/post">Post an idea</router-link>
-        <span v-if="isSignedIn">Welcome {{ userEmail }}</span>
+      <div class="menu" style="max-width: max-content;">
+        <div class="menu-item"><router-link to="/signup" v-if="!isSignedIn">Sign Up </router-link></div>
+        <div class="menu-item"><router-link to="/login" v-if="!isSignedIn">Login </router-link></div>
+        <div class="menu-item"><router-link to="/admin" v-if="isSignedIn && isAdmin"
+          >Admin Dashboard </router-link></div>
+        <div class="menu-item"><router-link to="/" v-if="isSignedIn">Idea Table</router-link></div>
+        <div class="menu-item"><router-link to="/post" v-if="isSignedIn">Post an idea </router-link></div>
+        <div class="menu-item"><a href="" @click.prevent="logout" v-if="isSignedIn">Logout </a></div>        
+        <span v-if="isSignedIn"> Welcome {{ userEmail }}</span>
       </div>
     </div>
   </nav>
@@ -79,32 +79,56 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .flex-container {
-  height: 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #1f2937;
-}
+        height: 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #1F2937;
+        
+    }
+        .flex-container div {
+            height: fit-content;
+            text-align: center;
+            color: white;
+            background-color: #1F2937;
+            
+        }
+        
+    .logo {
+        width: 300px;
+        height: 60px;
+        height: fit-content;
+        font-family: Monospace, 'Lucida Console', sans-serif;
+        font-weight: bold;
+        font-size: 25px;
+        padding-left: 30px;
+        
+    }
+    .menu {
+      width: auto;
+      padding-right: 20px;
+        font-family: Monospace, 'Lucida Console', sans-serif;
+        font-size: 18px;
+        
+    }
+    .menu-item {
+        padding: 8px;
+        width: auto;
+        display: inline-block;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        empty-cells: hide;
+        margin-left: 8px;
+    }
+    .menu-item:empty{
+    display:none;
 
-.flex-container div {
-  height: fit-content;
-  text-align: center;
-  color: white;
-  background-color: #1f2937;
-}
-
-.logo {
-  width: 200px;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-  font-weight: bold;
-  padding-left: 30px;
-}
-
-.menu {
-  width: 300px;
-  padding-right: 30px;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    }
+    .menu a,
+    .logo a,
+    .menu router-link {
+    text-decoration: none;
 }
 </style>
