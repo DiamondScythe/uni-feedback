@@ -7,7 +7,6 @@
   Body: {{ details.body }}
   <br />
   User id: {{ details.user_id }}
-
   {{ details }} -->
   <h1>Idea Detail Page</h1>
   <div class="container-fluid" style="margin-top: 3%; height: 550px">

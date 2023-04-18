@@ -15,7 +15,7 @@
     <input type="datetime-local" id="datetime" v-model="selectedFinalClosure" />
   </div>
 
-  <button @click="updateClosure">Update</button>
+  <button class="next-button" @click="updateClosure">Update</button>
 </template>
 
 <script>
@@ -89,3 +89,25 @@ export default {
   },
 };
 </script>
+
+<style>
+.next-button {
+        background-color: #1f2937;
+        color: white;
+        border: none;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        background-color: #30353b;
+        opacity: 0.5;
+        font-family: Monospace, 'Lucida Console', sans-serif;
+        font-size: 20px;
+        
+    }
+
+        .next-button:hover {
+        background-color: #1f2937;
+        transition: background-color 0.3s ease;
+        opacity: 1;
+        }
+        </style>

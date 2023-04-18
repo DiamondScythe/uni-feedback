@@ -17,8 +17,6 @@
     </form>
 
 </body>
-    <p>Email: {{ email }}</p>
-    <p>Password: {{ password }}</p>
 </template>
 
 
@@ -117,7 +115,7 @@ body{
     bottom: -80px;
 }
 form{
-    height: 550px;
+    height: 560px;
     width: 400px;
     background-color: rgba(255,255,255,0.13);
     position: absolute;
