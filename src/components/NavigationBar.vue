@@ -11,7 +11,7 @@
           >Admin Dashboard
         </router-link>
         <a href="" @click.prevent="logout" v-if="isSignedIn">Logout </a>
-        <router-link to="/post">Post an idea</router-link>
+        <router-link to="/post" v-if="isSignedIn">Post an idea</router-link>
         <span v-if="isSignedIn">Welcome {{ userEmail }}</span>
       </div>
     </div>
