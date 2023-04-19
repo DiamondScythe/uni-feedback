@@ -21,17 +21,6 @@ async function sendEmail(message) {
   }
 }
 
-// app.post("/email", async (req, res) => {
-//     const msg = {
-//       from: `"TestEmail" <${process.env.EMAIL_ADDRESS}>`,
-//       to: "nhutoan399@gmail.com",
-//       subject: "Hello",
-//       html: "<b>Hello world?</b>",
-//     };
-
-//     sendEmail(msg);
-//   });
-
 module.exports = {
   sendEmail,
 };
