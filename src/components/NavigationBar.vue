@@ -6,7 +6,9 @@
       </div>
       <div class="menu" style="max-width: max-content">
         <div class="menu-item">
-          <router-link to="/signup" v-if="!isSignedIn">Sign Up </router-link>
+          <router-link to="/signup" v-if="!isSignedIn"
+            >Sign Up (Dev mode)</router-link
+          >
         </div>
         <div class="menu-item">
           <router-link to="/login" v-if="!isSignedIn">Login </router-link>
