@@ -117,6 +117,12 @@ export default {
           { withCredentials: true }
         )
         .then((res) => {
+          axios.post("http://localhost:8081/addUserInfo", {
+            email: this.email,
+            role: this.role,
+          });
+        })
+        .then((res) => {
           return axios.get("http://localhost:8081/getAllStaff");
         })
         .then((res) => {

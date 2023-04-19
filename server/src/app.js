@@ -250,7 +250,8 @@ app.get("/comments", async (req, res) => {
 
 app.post("/voteIdea", async (req, res) => {
   const results = await db2.voteIdea(req.body);
-  res.status(201);
+  const currentVotes = await db2.getAllIdeaVotes(req.body.idea_id);
+  res.status(201).json(currentVotes[0]);
 });
 
 app.get("/ideavotes", async (req, res) => {

@@ -1,10 +1,10 @@
 <template>
   <body>
-  <h5>Vote this idea:</h5>
-  <button class= "upvote" @click="upvoteAction">Upvote</button>
-  <button class= "neutralvote" @click="middleVoteAction">Neutral vote</button>
-  <button class= "downvote" @click="downvoteAction">Downvote</button>
-  <div>Total votes: {{ totalVotes }}</div>
+    <h5>Vote this idea:</h5>
+    <button class="upvote" @click="upvoteAction">Upvote</button>
+    <button class="neutralvote" @click="middleVoteAction">Neutral vote</button>
+    <button class="downvote" @click="downvoteAction">Downvote</button>
+    <div>Total votes: {{ totalVotes }}</div>
   </body>
 </template>
 
@@ -31,8 +31,8 @@ export default {
           user_id: this.user_id,
           idea_id: this.idea_id,
         })
+        .then((res) => (this.totalVotes = res.data.votes))
         .catch((err) => console.log(err));
-      this.getVotes();
     },
     downvoteAction() {
       axios
@@ -41,8 +41,8 @@ export default {
           user_id: this.user_id,
           idea_id: this.idea_id,
         })
+        .then((res) => (this.totalVotes = res.data.votes))
         .catch((err) => console.log(err));
-      this.getVotes();
     },
 
     //this should fire when the user "unselects" a vote
@@ -53,20 +53,11 @@ export default {
           user_id: this.user_id,
           idea_id: this.idea_id,
         })
+        .then((res) => (this.totalVotes = res.data.votes))
         .catch((err) => console.log(err));
-      this.getVotes();
     },
 
-    getVotes() {
-      axios
-        .get("http://localhost:8081/ideavotes?id=" + this.idea_id)
-        .then((res) => {
-          console.log(res.data.votes);
-          if (res.data.votes !== null) {
-            this.totalVotes = res.data.votes;
-          }
-        });
-    },
+    getVotes() {},
   },
 };
 </script>
@@ -75,7 +66,7 @@ export default {
 .upvote {
   background-color: white;
   color: black;
-  border: 2px solid #4CAF50; /* Green */
+  border: 2px solid #4caf50; /* Green */
   margin: 5px;
   border-radius: 4px;
 }
@@ -83,7 +74,7 @@ export default {
 .neutralvote {
   background-color: white;
   color: black;
-  border: 2px solid #0000FF; /* Green */
+  border: 2px solid #0000ff; /* Green */
   margin: 5px;
   border-radius: 4px;
 }
@@ -91,14 +82,14 @@ export default {
 .downvote {
   background-color: white;
   color: black;
-  border: 2px solid #EE4B2B; /* Green */
+  border: 2px solid #ee4b2b; /* Green */
   margin: 5px;
   border-radius: 4px;
 }
-body{
-    background:#F0FFFF;
-    border: 3px black;
-    border-radius: 15px;
-    box-shadow: 10px 10px 5px lightblue;
+body {
+  background: #f0ffff;
+  border: 3px black;
+  border-radius: 15px;
+  box-shadow: 10px 10px 5px lightblue;
 }
 </style>
