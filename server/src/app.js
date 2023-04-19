@@ -55,11 +55,12 @@ mongoose
   .then((result) => {
     console.log("connected to mongodb db");
   })
-  .catch((err) =>
+  .catch((err) => {
     console.log(
-      "connection to mongodb failed. Authorization will not work. Please install mongodb on your computer, and make sure mongod is running"
-    )
-  );
+      "connection to mongodb failed. Authorization systems will not work. Please install mongodb on your computer, and make sure mongod is running. See README file for additional debugging steps"
+    );
+    console.log(err);
+  });
 
 //checks for uploads folder and creates one if it doesn't exist
 if (!fs.existsSync("./uploads")) {
