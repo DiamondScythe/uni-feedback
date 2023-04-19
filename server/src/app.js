@@ -301,7 +301,7 @@ app.get("/closureDates", async (req, res) => {
 // });
 
 //routes for email sending
-app.post("/email", async (req, res) => {
+app.post("/emailTest", async (req, res) => {
   const msg = {
     from: `"TestEmail" <${process.env.EMAIL_ADDRESS}>`,
     to: "nhutoan399@gmail.com",
@@ -310,6 +310,7 @@ app.post("/email", async (req, res) => {
   };
 
   sendEmail(msg);
+  res.status(200).json({ message: "Email sent successfully!" });
 });
 
 //add user info into sql db (not mongo)
