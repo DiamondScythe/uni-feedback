@@ -27,6 +27,7 @@ const routes = [
     path: "/post",
     name: "post",
     component: PostView,
+    meta: { requiresAuth: true },
   },
   {
     path: "/details/:id",
