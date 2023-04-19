@@ -45,7 +45,7 @@ export default {
   props: ["idea_id"],
   data() {
     return {
-      userId: null,
+      userId: 1,
       userEmail: "",
       commentText: "",
       comments: [],
