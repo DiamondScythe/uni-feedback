@@ -1,12 +1,16 @@
 <template>
-  <NavigationBar />
-  <body><router-view /></body>
-  <Footer v-if="!$route.meta.hideFooter"></Footer>
+  <div id="app">
+    <NavigationBar />
+    <div class="content">
+      <router-view />
+    </div>
+    <Footer v-if="!$route.meta.hideFooter" />
+  </div>
 </template>
 
 <script>
 import NavigationBar from "./components/NavigationBar.vue";
-import Footer from "./components/Footer.vue"
+import Footer from "./components/Footer.vue";
 export default {
   components: {
     NavigationBar,
@@ -30,13 +34,16 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  min-height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
+.content {
+  flex-grow: 1;
+}
 body {
-  margin:0 auto;
+  margin: 0 auto;
 }
 nav a {
   font-weight: bold;
@@ -45,9 +52,13 @@ nav a {
 nav a.router-link-exact-active {
   color: #28cd83;
 }
+.Footer {
+  margin-top: auto;
+}
 
 @font-face {
   font-family: "Game-of-Thrones";
-  src:local("Game-of-Thrones"),url(./fonts/Game-of-Thrones.ttf) format("truetype");
+  src: local("Game-of-Thrones"),
+    url(./fonts/Game-of-Thrones.ttf) format("truetype");
 }
 </style>
