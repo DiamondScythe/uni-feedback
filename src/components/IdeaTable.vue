@@ -1,42 +1,44 @@
 <template>
   <div v-if="isAuthenticated">
-    Sorting:
-    <select v-model="selectedSort">
-      <option value="newestFirst">Sort Newest First</option>
-      <option value="oldestFirst">Sort Oldest First</option>
-      <option value="sortAlphabetically">Sort Alphabetically</option>
-      <option value="sortAlphabeticallyReverse">
-        Sort Reverse Alphabetically
-      </option>
-    </select>
-    <table id="ideaTable">
+    <div>
+    <h5>Sorting:</h5>
+      <select class="formbold-form-box" v-model="selectedSort">
+        <option value="newestFirst">Sort Newest First</option>
+        <option value="oldestFirst">Sort Oldest First</option>
+        <option value="sortAlphabetically">Sort Alphabetically</option>
+        <option value="sortAlphabeticallyReverse">
+          Sort Reverse Alphabetically
+        </option>
+      </select>
+    </div>
+    <table id="ideaTable" style="">
       <tr>
         <th>idea</th>
         <th>type</th>
         <th>actions</th>
       </tr>
       <tr v-for="idea in paginatedItems" :key="idea.id">
-        <th>{{ idea.title }}</th>
-        <th>{{ getCategoryName(idea.category_id) }}</th>
-        <th>
+        <td>{{ idea.title }}</td>
+        <td>{{ getCategoryName(idea.category_id) }}</td>
+        <td>
           <router-link :to="{ name: 'details', params: { id: idea.id } }"
-            >Details</router-link
+            >Details   </router-link
           >
           <button @click="confirmDelete(idea.id)" v-if="!isStaff">
             Delete
           </button>
-        </th>
+        </td>
       </tr>
     </table>
 
-    <div class="pagination">
+    <div class="pagination" style="margin-top: 10px">
       <button @click="previousPage" :disabled="currentPage === 1">
         Previous
       </button>
       <button @click="nextPage" :disabled="currentPage === totalPages">
         Next
       </button>
-      Current page: {{ currentPage }}/{{ totalPages }}
+      <div>Current page: {{ currentPage }}/{{ totalPages }} </div>
     </div>
   </div>
   <div v-else>
@@ -59,7 +61,7 @@ export default {
       categories: [],
 
       //pagination settings
-      itemsPerPage: 4,
+      itemsPerPage: 6,
       currentPage: 1,
     };
   },
@@ -160,9 +162,97 @@ export default {
 };
 </script>
 
-<style>
-table {
-  border: 1px solid;
-  width: 100%;
+<style scoped>
+ @import url('https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Roboto');
+*{
+ margin: auto;
+ padding: 0;
+ outline: 0;
 }
+
+.filter{
+ left: 0;
+ top: 0;
+ bottom: 0;
+ right: 0;
+ z-index: 1;
+ background: rgb(233,76,161);
+background: -moz-linear-gradient(90deg, rgba(233,76,161,1) 0%, rgba(199,74,233,1) 100%);
+background: -webkit-linear-gradient(90deg, rgba(233,76,161,1) 0%, rgba(199,74,233,1) 100%);
+background: linear-gradient(90deg, rgba(233,76,161,1) 0%, rgba(199,74,233,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e94ca1",endColorstr="#c74ae9",GradientType=1);
+opacity: .7;
+}
+table{
+margin: 0px auto;
+ z-index: 2;
+ left: 50%;
+ top: 50%;
+ width: 80%; 
+ border-spacing: 0;
+ box-shadow: 0 2px 15px rgba(64,64,64,.7);
+ border-radius: 12px 12px 0 0;
+ overflow: hidden;
+
+}
+td , th{
+ padding: 15px 20px;
+ text-align: center;
+ 
+
+}
+th{
+ background-color: #ba68c8;
+ color: #fafafa;
+ font-family: 'Open Sans',Sans-serif;
+ font-weight: 200;
+ text-transform: uppercase;
+
+}
+tr{
+ width: 100%;
+ background-color: #fafafa;
+ font-family: 'Montserrat', sans-serif;
+}
+tr:nth-child(even){
+ background-color: #eeeeee;
+}
+
+/* Pagination styling:  */
+.pagination {
+  display: inline-block;
+}
+
+.pagination button {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.pagination button.active {
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+}
+
+.pagination button:hover:not(.active) {
+  background-color: #ddd;
+  border-radius: 5px;
+}
+.formbold-form-box {
+    margin: auto;
+    text-align: center;
+    width: 20%;
+    color: #07074D;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    margin-bottom: 10px;
+    border: 1px black;
+    border-width: 90%;
+    border-style: solid;
+    border-radius: 5px;
+  }
+
 </style>

@@ -1,14 +1,17 @@
 <template>
   <div class="container">
     <div class="sidebar">
+      <h5 style="color:green;">Admin Menu:</h5>
+      <div class="sidebar-holder">
       <!-- List of links for the sidebar -->
-      <ul>
-        <li><a href="#" @click="categoryOn">Category Management</a></li>
-        <li><a href="#" @click="staffOn">Staff Management</a></li>
-        <li><a href="#" @click="ideaOn">Idea Management</a></li>
-        <li><a href="#" @click="dataOn">Data Management</a></li>
-        <li><a href="#" @click="closureOn">Closure Management</a></li>
-      </ul>
+        <ul>
+          <li><button class= "button" href="#" @click="categoryOn">Category Management</button></li>
+          <li><button class= "button" href="#" @click="staffOn">Staff Management</button></li>
+          <li><button class= "button" href="#" @click="ideaOn">Idea Management</button></li>
+          <li><button class= "button" href="#" @click="dataOn">Data Management</button></li>
+          <li><button class= "button" href="#" @click="closureOn">Closure Management</button></li>
+        </ul>
+      </div>
     </div>
     <div class="content">
       <!-- Content goes here -->
@@ -85,17 +88,22 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+h5 {
+  font-family: Monospace, 'Lucida Console', sans-serif;
+}
 .container {
   display: flex;
   flex-direction: row;
-  height: 100vh;
 }
 
 .sidebar {
   width: 20%;
-  background-color: #f1f1f1;
-  padding: 20px;
+  margin: 0 auto;
+  background:#F0FFFF;
+  border: 3px black;
+  border-radius: 15px;
+  box-shadow: 5px 5px 5px lightblue;
 }
 
 .content {
@@ -106,4 +114,18 @@ export default {
 ul {
   list-style: none;
 }
+
+.button {
+  font-family: Monospace, 'Lucida Console', sans-serif;
+  background-color: white;
+  color: black;
+  border: 2px solid #4CAF50; /* Green */
+  margin: 5px;
+  border-radius: 4px;
+  width: 180px;
+  height: 50px;
+  box-shadow: 2px 2px 2px green;
+
+}
+
 </style>

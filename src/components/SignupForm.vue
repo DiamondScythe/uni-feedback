@@ -21,9 +21,6 @@
       <button type="submit" value="Sign Up">Sign Up</button>
     </form>
   </body>
-  <p>Email: {{ email }}</p>
-  <p>Password: {{ password }}</p>
-  <p>Role: {{ role }}</p>
 </template>
 
 <script>
@@ -134,7 +131,7 @@ body {
   bottom: -80px;
 }
 form {
-  height: 500px;
+  height: 600px;
   width: 400px;
   background-color: rgba(255, 255, 255, 0.13);
   position: absolute;
