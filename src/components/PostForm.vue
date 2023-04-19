@@ -109,6 +109,7 @@ export default {
     }
     axios.get("http://localhost:8081/categories").then((res) => {
       this.categories = res.data.categories;
+      this.selectedCategory = this.categories[0].id;
     });
     //get the sql user id based on email
     axios
