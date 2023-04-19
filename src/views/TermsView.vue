@@ -11,14 +11,15 @@
     <body>
       <section id="terms-of-service">
         <div class="card">
-          <h1 class="primary-heading">Terms and Condition</h1>
+          <h1 class="primary-heading">Terms and Conditions</h1>
           <p class="paragraph">
-            1) Acceptance of Terms: By accessing or using this website, you
-            acknowledge that you have read, understood, and agreed to be bound
-            by these terms and conditions, as well as any additional terms and
-            conditions that may apply to specific sections of the website or to
-            particular services offered through the website. If you do not agree
-            to these terms and conditions, you should not use this website.
+            1) Acceptance of Terms: By accessing or using this website (UNF),
+            you acknowledge that you have read, understood, and agreed to be
+            bound by these terms and conditions, as well as any additional terms
+            and conditions that may apply to specific sections of the website or
+            to particular services offered through the website. If you do not
+            agree to these terms and conditions, you should not use this
+            website.
             <br /><br /><br />
             2) User Accounts: In order to use certain features of this website,
             you may be required to create a user account. You are responsible
@@ -42,43 +43,31 @@
             <br /><br /><br />
             4) Intellectual Property: All content on this website, including but
             not limited to text, graphics, logos, images, and software, is the
-            property of [Web Application Name] or its content suppliers and is
-            protected by United States and international copyright laws. You may
-            not reproduce, modify, distribute, or otherwise use any content on
-            this website without the express written permission of UNF.
+            property of UNF or its content suppliers and is protected by United
+            States and international copyright laws. You may not reproduce,
+            modify, distribute, or otherwise use any content on this website
+            without the express written permission of UNF.
             <br /><br /><br />
             5) Limitation of Liability: To the fullest extent permitted by law,
-            [Web Application Name] disclaims all warranties, express or implied,
-            including but not limited to implied warranties of merchantability,
-            fitness for a particular purpose, and non-infringement. UNF will not
-            be liable for any direct, indirect, incidental, special,
-            consequential, or punitive damages arising out of or relating to
-            your use of this website or any services provided through this
-            website, even if UNF has been advised of the possibility of such
-            damages.
+            UNF disclaims all warranties, express or implied, including but not
+            limited to implied warranties of merchantability, fitness for a
+            particular purpose, and non-infringement. UNF will not be liable for
+            any direct, indirect, incidental, special, consequential, or
+            punitive damages arising out of or relating to your use of this
+            website or any services provided through this website, even if UNF
+            has been advised of the possibility of such damages.
             <br /><br /><br />
             6) Indemnification:You agree to indemnify, defend, and hold harmless
-            [Web Application Name], its officers, directors, employees, agents,
-            and affiliates from and against any and all claims, damages, losses,
-            liabilities, and expenses (including reasonable attorneys' fees)
-            arising out of or relating to your use of this website or any breach
-            of these terms and conditions. 7) Modifications to Terms and
-            Conditions: UNF reserves the right to modify these terms and
-            conditions at any time without prior notice. Your continued use of
-            this website after any such modifications constitutes your
-            acceptance of the revised terms and conditions. Governing Law
-            <br /><br /><br />
-            8) You <span class="bold">agree</span> that beCoditive may
-            <span class="bold">terminate</span> your access to beCoditive API
-            for violations of the TOS and/or requests by authorized law
-            enforcement or other government agencies. <br /><br /><br />
-            9) You acknowledge that beCoditive may establish general practices
-            and limits concerning use of beCoditive API, including without
-            limitation the maximum number of days that email messages, message
-            board postings or other uploaded Content will be retained by
-            beCoditive API. You further acknowledge that beCoditive reserves the
-            right to modify these general practices and limits from time to
-            time.
+            UNF, its officers, directors, employees, agents, and affiliates from
+            and against any and all claims, damages, losses, liabilities, and
+            expenses (including reasonable attorneys' fees) arising out of or
+            relating to your use of this website or any breach of these terms
+            and conditions. 7) Modifications to Terms and Conditions: UNF
+            reserves the right to modify these terms and conditions at any time
+            without prior notice. Your continued use of this website after any
+            such modifications constitutes your acceptance of the revised terms
+            and conditions.
+            <br />
           </p>
         </div>
       </section>
